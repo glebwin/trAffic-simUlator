@@ -2,8 +2,12 @@
 #define TRAFFIC_SIMULATOR_PATH_H
 
 
-class Path {
+class Car;
 
+class Path {
+public:
+
+    virtual Car* get_next_car(Car *car) = 0;
 };
 
 

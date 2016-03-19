@@ -2,14 +2,17 @@
 #define TRAFFIC_SIMULATOR_CAR_H
 
 
+#include <vector>
 #include "Path.h"
+#include "Road.h"
 
 class Car {
 private:
 
-    int acceleration;
     int velocity;
+    int coord;
 
+    int length;
     int min_gap;
     int time_headway;
     int cruise_speed;
@@ -17,9 +20,16 @@ private:
     int max_deceleration;
     int acceleration_exponent;
 
+    Path *path;
+    std::vector<Road *> route;
+
 public:
 
     void on_tick(unsigned int delta_ms);
+
+private:
+
+    double calc_acceleration();
 };
 
 
