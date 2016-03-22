@@ -3,10 +3,14 @@
 
 
 #include <vector>
+#include "Direction.h"
 #include "Path.h"
 #include "Road.h"
 
 class Car {
+
+    enum State {MOVING_STRAIGHT, CHANGING_LANE, CROSSING_CROSSROAD, DROVE_AWAY, STATES_NUM};
+
 private:
 
     int velocity;
@@ -20,8 +24,11 @@ private:
     int max_deceleration;
     int acceleration_exponent;
 
-    Path *path;
-    std::vector<Road *> route;
+    State state;
+    Lane *lane;
+
+    std::vector<Direction> route;
+    std::vector<Direction>::iterator route_it;
 
 public:
 
@@ -30,6 +37,7 @@ public:
 private:
 
     double calc_acceleration();
+    Car* get_next_car();
 };
 
 

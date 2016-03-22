@@ -5,9 +5,15 @@
 class Car;
 
 class Path {
+private:
+
+    int length;
+
 public:
 
-    virtual Car* get_next_car(Car *car) = 0;
+    virtual Path* get_next_path() = 0;
+    virtual bool can_enter_road_node() = 0;
+    virtual int get_length() = 0;
 };
 
 

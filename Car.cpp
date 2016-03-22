@@ -2,20 +2,37 @@
 #include "Car.h"
 
 void Car::on_tick(unsigned int delta_ms) {
+    if(state == DROVE_AWAY)  return;
+
     double acceleration = calc_acceleration();
+    coord += velocity * delta_ms + 0.5 * acceleration * pow(delta_ms, 2);
     velocity += acceleration * delta_ms;
 }
 
 double Car::calc_acceleration() {
-    Car *next_car = path->get_next_car(this);
+    double free_road_term = 0;
+    double interaction_term = 0;
+    double crossroad_term = 0;
 
-    double free_road_term = pow((double)velocity / cruise_speed, acceleration_exponent);
-    double interaction_term = pow(
-                              (min_gap + velocity*time_headway + velocity*(velocity-next_car->velocity) / (2*sqrt(max_acceleration*max_deceleration))) /
-                                  (next_car->coord - next_car->length - coord),
-                              2);
+    free_road_term = pow((double)velocity / cruise_speed, acceleration_exponent);
 
-    double acceleration = max_acceleration * (1 - free_road_term - interaction_term);
+    Car *next_car = get_next_car();
+    if(next_car)
+        interaction_term = pow(
+                               (min_gap + (double)velocity*time_headway + (double)velocity*(velocity-next_car->velocity) / (2*sqrt((double)max_acceleration*max_deceleration))) /
+                                   (next_car->coord - next_car->length - coord),
+                                2);
+
+//    if(state == MOVING_STRAIGHT && )
+//        crossroad_term = pow((1 + (double)velocity*time_headway + pow((double)velocity, 2) / (2 * max_deceleration)) / (path->get_length() - coord), 2);
+
+
+    double acceleration = max_acceleration * (1 - free_road_term - interaction_term - crossroad_term);
 
     return acceleration;
+}
+
+Car* Car::get_next_car() {
+    Car *ret = nullptr;
+    return ret;
 }
