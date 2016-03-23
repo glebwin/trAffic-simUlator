@@ -8,7 +8,7 @@
 class Road {
 private:
 
-    std::vector<Lane *> lanes;
+    std::vector<Lane*> lanes;
 };
 
 

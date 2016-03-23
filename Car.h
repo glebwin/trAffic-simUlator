@@ -7,6 +7,8 @@
 #include "Path.h"
 #include "Road.h"
 
+class Lane;
+
 class Car {
 
     enum State {MOVING_STRAIGHT, CHANGING_LANE, CROSSING_CROSSROAD, DROVE_AWAY, STATES_NUM};

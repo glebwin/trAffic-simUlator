@@ -7,7 +7,10 @@
 
 class TrafficLight {
 
-    struct CrossRoadPath {
+    struct State {
+        int duration;
+        int mask;
+
         static const int TL = 1 << 0;
         static const int TF = 1 << 1;
         static const int TR = 1 << 2;
@@ -27,7 +30,9 @@ class TrafficLight {
 
 private:
 
-    std::vector<std::pair<int, int>> schedule;
+    std::vector<State> schedule;
+    std::vector<State>::iterator schedule_it;
+    int timer;
 
 public:
 

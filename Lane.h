@@ -2,8 +2,19 @@
 #define TRAFFIC_SIMULATOR_LANE_H
 
 
-class Lane {
+#include <list>
 
+class Car;
+
+class Lane {
+private:
+
+    int length;
+    std::list<Car*> cars;
+
+public:
+
+    int get_length() const;
 };
 
 
