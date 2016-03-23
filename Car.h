@@ -4,7 +4,6 @@
 
 #include <vector>
 #include "Direction.h"
-#include "Path.h"
 #include "Road.h"
 
 class Lane;

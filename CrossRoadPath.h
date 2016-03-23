@@ -3,19 +3,17 @@
 
 
 #include <list>
-#include "Car.h"
+#include "CarPath.h"
 
-class CrossRoadPath {
+class Lane;
+
+class CrossRoadPath : public CarPath {
 private:
 
-    int length;
-    std::list<Car*> cars;
     Lane *source;
     Lane *target;
 
 public:
-
-    int get_length() const;
 };
 
 
