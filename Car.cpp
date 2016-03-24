@@ -1,5 +1,7 @@
 #include <cmath>
 #include "Car.h"
+#include "CrossRoadPath.h"
+#include "Lane.h"
 
 void Car::on_tick(unsigned int delta_ms) {
     if(state == DROVE_AWAY)  return;
@@ -34,5 +36,17 @@ double Car::calc_acceleration() {
 
 Car* Car::get_next_car() {
     Car *ret = nullptr;
+
+    if(state == MOVING_STRAIGHT) {
+        ret = lane->get_next_car(this);
+        if (!ret)
+            ret = crossroad_path->get_first_car();
+    }
+    else {
+        ret = crossroad_path->get_next_car(this);
+        if (!ret && lane)
+            ret = lane->get_first_car();
+    }
+
     return ret;
 }

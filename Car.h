@@ -4,9 +4,10 @@
 
 #include <vector>
 #include "Direction.h"
-#include "Road.h"
 
+class CrossRoadPath;
 class Lane;
+class Road;
 
 class Car {
 
@@ -27,6 +28,7 @@ private:
 
     State state;
     Lane *lane;
+    CrossRoadPath *crossroad_path;
 
     std::vector<Direction> route;
     std::vector<Direction>::iterator route_it;
