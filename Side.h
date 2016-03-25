@@ -1,0 +1,8 @@
+#ifndef TRAFFIC_SIMULATOR_SIDE_H_H
+#define TRAFFIC_SIMULATOR_SIDE_H_H
+
+
+enum Side {TOP, RIGHT, BOTTOM, LEFT, SIDES_NUM};
+
+
+#endif

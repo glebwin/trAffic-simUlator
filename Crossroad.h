@@ -13,6 +13,7 @@ private:
 public:
 
     void on_tick(unsigned int delta_ms);
+    bool can_enter_crossroad();
 };
 
 

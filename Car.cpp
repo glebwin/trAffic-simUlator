@@ -7,7 +7,7 @@ void Car::on_tick(unsigned int delta_ms) {
     if(state == DROVE_AWAY)  return;
 
     double acceleration = calc_acceleration();
-    coord += velocity * delta_ms + 0.5 * acceleration * pow(delta_ms, 2);
+    coord += velocity * static_cast<int>(delta_ms) + 0.5 * acceleration * pow(delta_ms, 2);
     velocity += acceleration * delta_ms;
 }
 
@@ -16,12 +16,12 @@ double Car::calc_acceleration() {
     double interaction_term = 0;
     double crossroad_term = 0;
 
-    free_road_term = pow((double)velocity / cruise_speed, acceleration_exponent);
+    free_road_term = pow(static_cast<double>(velocity) / cruise_speed, acceleration_exponent);
 
     Car *next_car = get_next_car();
     if(next_car)
         interaction_term = pow(
-                               (min_gap + (double)velocity*time_headway + (double)velocity*(velocity-next_car->velocity) / (2*sqrt((double)max_acceleration*max_deceleration))) /
+                               (min_gap + static_cast<double>(velocity)*time_headway + static_cast<double>(velocity)*(velocity-next_car->velocity) / (2*sqrt(static_cast<double>(max_acceleration)*max_deceleration))) /
                                    (next_car->coord - next_car->length - coord),
                                 2);
 

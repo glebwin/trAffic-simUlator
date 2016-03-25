@@ -2,41 +2,30 @@
 #define TRAFFIC_SIMULATOR_TRAFFICLIGHT_H
 
 
-#include <utility>
 #include <vector>
+#include "Side.h"
 
 class TrafficLight {
 
-    struct State {
-        int duration;
-        int mask;
-
-        static const int TL = 1 << 0;
-        static const int TF = 1 << 1;
-        static const int TR = 1 << 2;
-
-        static const int RL = 1 << 3;
-        static const int RF = 1 << 4;
-        static const int RR = 1 << 5;
-
-        static const int BL = 1 << 6;
-        static const int BF = 1 << 7;
-        static const int BR = 1 << 8;
-
-        static const int LL = 1 << 9;
-        static const int LF = 1 << 10;
-        static const int LR = 1 << 11;
+    struct ScheduleUnit {
+        unsigned int duration;
+        int state;
     };
 
 private:
 
-    std::vector<State> schedule;
-    std::vector<State>::iterator schedule_it;
-    int timer;
+    std::vector<ScheduleUnit> schedule;
+    std::vector<ScheduleUnit>::iterator schedule_it;
+    unsigned int timer;
 
 public:
 
     void on_tick(unsigned int delta_ms);
+    bool is_green_light(Side source, Side target);
+
+private:
+
+    int get_mask(Side source, Side target);
 };
 
 

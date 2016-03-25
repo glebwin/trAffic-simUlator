@@ -3,7 +3,7 @@
 
 
 #include <vector>
-#include "Direction.h"
+#include "Side.h"
 
 class CrossRoadPath;
 class Lane;
@@ -30,8 +30,8 @@ private:
     Lane *lane;
     CrossRoadPath *crossroad_path;
 
-    std::vector<Direction> route;
-    std::vector<Direction>::iterator route_it;
+    std::vector<Side> route;
+    std::vector<Side>::iterator route_it;
 
 public:
 
