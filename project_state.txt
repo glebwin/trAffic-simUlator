@@ -1,4 +1,8 @@
 works:
-    nothing
+    simulation's basic part
 
 doesn't work:
+    classes initialization
+    lane changing
+    connection with real coordinates
+    gui
