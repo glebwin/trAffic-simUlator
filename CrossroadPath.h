@@ -7,17 +7,19 @@
 class Crossroad;
 class Lane;
 
-class CrossRoadPath : public CarPath {
+class CrossroadPath : public CarPath {
 private:
 
     Lane *source;
     Lane *target;
 
-    Crossroad *cross_road;
+    Crossroad *crossroad;
 
 public:
 
     bool can_enter();
+
+    CrossroadPath(Lane *source, Lane *target, Crossroad *crossroad);
 };
 
 

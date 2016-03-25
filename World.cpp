@@ -1,3 +1,5 @@
+#include "Car.h"
+#include "Crossroad.h"
 #include "World.h"
 
 void World::on_tick(unsigned int delta_ms) {
@@ -5,4 +7,16 @@ void World::on_tick(unsigned int delta_ms) {
         it->on_tick(delta_ms);
     for(auto it : crossroads)
         it->on_tick(delta_ms);
+}
+
+void World::add_car(Car *car) {
+    cars.push_back(car);
+}
+
+void World::add_crossroad(Crossroad *crossroad) {
+    crossroads.push_back(crossroad);
+}
+
+void World::add_road(Road *road) {
+    roads.push_back(road);
 }

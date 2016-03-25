@@ -2,19 +2,27 @@
 #define TRAFFIC_SIMULATOR_WORLD_H
 
 
+#include <list>
 #include <vector>
-#include "Car.h"
-#include "Crossroad.h"
+
+class Car;
+class Crossroad;
+class Road;
 
 class World {
 private:
 
     std::vector<Car *> cars;
     std::vector<Crossroad *> crossroads;
+    std::list<Road *> roads;
 
 public:
 
     void on_tick(unsigned int delta_ms);
+
+    void add_car(Car *car);
+    void add_crossroad(Crossroad *crossroad);
+    void add_road(Road *road);
 };
 
 #endif

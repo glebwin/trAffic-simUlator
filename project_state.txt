@@ -1,5 +1,5 @@
 works:
-    simulation's basic part
+    most of the simulation's basic part
 
 doesn't work:
     classes initialization

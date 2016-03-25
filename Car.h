@@ -5,7 +5,7 @@
 #include <vector>
 #include "Side.h"
 
-class CrossRoadPath;
+class CrossroadPath;
 class Lane;
 class Road;
 
@@ -28,7 +28,7 @@ private:
 
     State state;
     Lane *lane;
-    CrossRoadPath *crossroad_path;
+    CrossroadPath *crossroad_path;
 
     std::vector<Side> route;
     std::vector<Side>::iterator route_it;

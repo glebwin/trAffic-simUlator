@@ -9,6 +9,10 @@ class Road {
 private:
 
     std::vector<Lane*> lanes;
+
+public:
+
+    ~Road();
 };
 
 
