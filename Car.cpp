@@ -14,7 +14,7 @@ void Car::on_tick(unsigned int delta_ms) {
 double Car::calc_acceleration() {
     double free_road_term = 0;
     double interaction_term = 0;
-    double crossroad_term = 0;
+    double traffic_light_term = 0;
 
     free_road_term = pow(static_cast<double>(velocity) / cruise_speed, acceleration_exponent);
 
@@ -25,11 +25,10 @@ double Car::calc_acceleration() {
                                    (next_car->coord - next_car->length - coord),
                                 2);
 
-//    if(state == MOVING_STRAIGHT && )
-//        crossroad_term = pow((1 + (double)velocity*time_headway + pow((double)velocity, 2) / (2 * max_deceleration)) / (path->get_length() - coord), 2);
+    if((state == MOVING_STRAIGHT || state == CHANGING_LANE) && !crossroad_path->can_enter())
+        traffic_light_term = pow((1 + static_cast<double>(velocity)*time_headway + pow(velocity, 2) / (2 * max_deceleration)) / (lane->get_length() - coord), 2);
 
-
-    double acceleration = max_acceleration * (1 - free_road_term - interaction_term - crossroad_term);
+    double acceleration = max_acceleration * (1 - free_road_term - interaction_term - traffic_light_term);
 
     return acceleration;
 }
