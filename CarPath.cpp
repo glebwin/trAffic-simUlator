@@ -19,3 +19,15 @@ Car* CarPath::get_first_car() const {
     else
         return nullptr;
 }
+
+void CarPath::arrive(Car *car) {
+    cars.push_front(car);
+}
+
+void CarPath::depart(Car *car) {
+    for(auto it = --cars.end(); ; --it)
+        if(*it == car) {
+            cars.erase(it);
+            break;
+        }
+}

@@ -9,3 +9,7 @@ CrossroadPath::CrossroadPath(Lane *source, Lane *target, Crossroad *crossroad)
         : source(source), target(target), crossroad(crossroad) {
 
 }
+
+Lane *CrossroadPath::get_target_road() {
+    return target;
+}

@@ -9,6 +9,19 @@ void Car::on_tick(unsigned int delta_ms) {
     double acceleration = calc_acceleration();
     coord += velocity * static_cast<int>(delta_ms) + 0.5 * acceleration * pow(delta_ms, 2);
     velocity += acceleration * delta_ms;
+
+    if(state == MOVING_STRAIGHT && coord >= lane->get_length() && crossroad_path->can_enter()) {
+        coord -= lane->get_length();
+        lane->depart(this);
+        crossroad_path->arrive(this);
+        lane = crossroad_path->get_target_road();
+    }
+    else if(state == CROSSING_CROSSROAD && coord >= lane->get_length()) {
+        coord -= lane->get_length();
+        crossroad_path->depart(this);
+        lane->arrive(this);
+        // get next crossroad path
+    }
 }
 
 double Car::calc_acceleration() {

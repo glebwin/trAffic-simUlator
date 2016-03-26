@@ -20,6 +20,7 @@ public:
     bool can_enter();
 
     CrossroadPath(Lane *source, Lane *target, Crossroad *crossroad);
+    Lane* get_target_road();
 };
 
 
