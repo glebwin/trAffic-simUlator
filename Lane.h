@@ -6,16 +6,22 @@
 #include "Side.h"
 
 
+class Crossroad;
+
+class Road;
+
 class Lane : public CarPath {
 private:
 
-    Side beginning;
-    Side end;
+    Road *road;
+    int lane_num;
 
 public:
 
-    Side get_beginning_side();
+    Side get_beg_side();
     Side get_end_side();
+    Crossroad* get_next_crossroad();
+    int get_num();
 };
 
 

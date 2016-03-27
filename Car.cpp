@@ -1,5 +1,6 @@
 #include <cmath>
 #include "Car.h"
+#include "Crossroad.h"
 #include "CrossroadPath.h"
 #include "Lane.h"
 
@@ -20,7 +21,8 @@ void Car::on_tick(unsigned int delta_ms) {
         coord -= lane->get_length();
         crossroad_path->depart(this);
         lane->arrive(this);
-        // get next crossroad path
+        crossroad_path = lane->get_next_crossroad()->get_crossroad_path(lane->get_end_side(), lane->get_num(), *route_it, lane->get_num());
+        ++route_it;
     }
 }
 
@@ -61,4 +63,8 @@ Car* Car::get_next_car() {
     }
 
     return ret;
+}
+
+Lane* Car::get_next_lane() {
+    return nullptr;
 }
