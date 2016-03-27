@@ -1,5 +1,5 @@
-#include "Crossroad.h"
-#include "CrossroadPath.h"
+#include "../include/Crossroad.h"
+#include "../include/CrossroadPath.h"
 
 bool CrossroadPath::can_enter() {
     return crossroad->is_green_light(source, target);

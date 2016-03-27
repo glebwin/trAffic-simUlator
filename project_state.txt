@@ -1,8 +1,8 @@
 works:
-    most of the simulation's basic part
+    basic interaction of simulation's entities
 
 doesn't work:
-    classes initialization
+    initialization
     lane changing
-    connection with real coordinates
+    geometry binding
     gui

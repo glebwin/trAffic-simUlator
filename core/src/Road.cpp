@@ -1,5 +1,5 @@
-#include "Lane.h"
-#include "Road.h"
+#include "../include/Lane.h"
+#include "../include/Road.h"
 
 Road::~Road() {
     for(auto lane : lanes)

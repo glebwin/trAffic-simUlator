@@ -1,8 +1,8 @@
 #include <cmath>
-#include "Car.h"
-#include "Crossroad.h"
-#include "CrossroadPath.h"
-#include "Lane.h"
+#include "../include/Car.h"
+#include "../include/Crossroad.h"
+#include "../include/CrossroadPath.h"
+#include "../include/Lane.h"
 
 void Car::on_tick(unsigned int delta_ms) {
     if(state == DROVE_AWAY)  return;

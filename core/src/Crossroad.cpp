@@ -1,6 +1,6 @@
-#include "Crossroad.h"
-#include "Lane.h"
-#include "TrafficLight.h"
+#include "../include/Crossroad.h"
+#include "../include/Lane.h"
+#include "../include/TrafficLight.h"
 
 void Crossroad::on_tick(unsigned int delta_ms) {
     traffic_light->on_tick(delta_ms);

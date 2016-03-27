@@ -1,5 +1,5 @@
-#include "Lane.h"
-#include "Road.h"
+#include "../include/Lane.h"
+#include "../include/Road.h"
 
 Side Lane::get_beg_side() {
     return road->get_beg_side();

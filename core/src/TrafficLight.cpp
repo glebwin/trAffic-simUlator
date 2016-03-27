@@ -1,4 +1,4 @@
-#include "TrafficLight.h"
+#include "../include/TrafficLight.h"
 
 void TrafficLight::on_tick(unsigned int delta_ms) {
     timer += delta_ms;

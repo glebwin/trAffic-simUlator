@@ -1,6 +1,6 @@
-#include "Car.h"
-#include "Crossroad.h"
-#include "World.h"
+#include "../include/Car.h"
+#include "../include/Crossroad.h"
+#include "../include/World.h"
 
 void World::on_tick(unsigned int delta_ms) {
     for(auto it : cars)
