@@ -6,11 +6,13 @@
 
 class CrossroadPath;
 class Lane;
+class Road;
 class TrafficLight;
 
 class Crossroad {
 private:
 
+    Road *roads[SIDES_NUM];
     TrafficLight *traffic_light;
     CrossroadPath **crossroad_paths;
 

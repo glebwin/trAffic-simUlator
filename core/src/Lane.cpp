@@ -16,3 +16,7 @@ Crossroad* Lane::get_next_crossroad() {
 int Lane::get_num() {
     return lane_num;
 }
+
+Lane::Lane(Road *road, int lane_num)
+    : road(road), lane_num(lane_num) {
+}

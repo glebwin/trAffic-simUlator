@@ -12,18 +12,19 @@ class Road {
 private:
 
     std::vector<Lane*> lanes;
-    Side beginning_side;
+    Side beg_side;
     Side end_side;
-    Crossroad *beginning_crossroad;
+    Crossroad *beg_crossroad;
     Crossroad *end_crossroad;
 
 public:
 
+    Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Side end_side);
+    ~Road();
+
     Side get_beg_side();
     Side get_end_side();
     Crossroad* get_next_crossroad();
-
-    ~Road();
 };
 
 

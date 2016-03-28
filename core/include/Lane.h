@@ -17,6 +17,8 @@ private:
 
 public:
 
+    Lane(Road *road, int lane_num);
+
     Side get_beg_side();
     Side get_end_side();
     Crossroad* get_next_crossroad();
