@@ -6,7 +6,6 @@
 
 class CrossroadPath;
 class Lane;
-class Road;
 class TrafficLight;
 
 class Crossroad {

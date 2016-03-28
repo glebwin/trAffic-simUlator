@@ -7,7 +7,6 @@
 
 
 class Crossroad;
-
 class Road;
 
 class Lane : public CarPath {

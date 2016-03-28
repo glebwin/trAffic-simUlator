@@ -7,7 +7,6 @@
 
 class CrossroadPath;
 class Lane;
-class Road;
 
 class Car {
 
@@ -41,7 +40,6 @@ private:
 
     double calc_acceleration();
     Car* get_next_car();
-    Lane* get_next_lane();
 };
 
 

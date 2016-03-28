@@ -64,7 +64,3 @@ Car* Car::get_next_car() {
 
     return ret;
 }
-
-Lane* Car::get_next_lane() {
-    return nullptr;
-}

@@ -2,7 +2,6 @@
 #define TRAFFIC_SIMULATOR_WORLD_H
 
 
-#include <list>
 #include <vector>
 
 class Car;
@@ -14,7 +13,7 @@ private:
 
     std::vector<Car *> cars;
     std::vector<Crossroad *> crossroads;
-    std::list<Road *> roads;
+    std::vector<Road *> roads;
 
 public:
 
