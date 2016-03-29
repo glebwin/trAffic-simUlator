@@ -17,9 +17,9 @@ private:
 
 public:
 
-    bool can_enter();
-
     CrossroadPath(Lane *source, Lane *target, Crossroad *crossroad);
+
+    bool can_enter();
     Lane* get_target_road();
 };
 
