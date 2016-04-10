@@ -11,7 +11,8 @@ class Lane;
 class Road {
 private:
 
-    std::vector<Lane*> lanes;
+    std::vector<Lane*> forward_lanes;
+    std::vector<Lane*> backward_lanes;
     Side beg_side;
     Side end_side;
     Crossroad *beg_crossroad;
@@ -19,7 +20,8 @@ private:
 
 public:
 
-    Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Side end_side);
+    Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Side end_side,
+         unsigned int forward_lanes_num, unsigned int backward_lanes_num);
     ~Road();
 
     Side get_beg_side();

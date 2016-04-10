@@ -6,10 +6,12 @@
 #include "Side.h"
 
 class TrafficLight {
+public:
 
     struct ScheduleUnit {
-        unsigned int duration;
         int state;
+        unsigned int duration;
+        ScheduleUnit(int state, unsigned int duration) : state(state), duration(duration) {}
     };
 
 private:
@@ -20,6 +22,9 @@ private:
 
 public:
 
+    TrafficLight(std::vector<ScheduleUnit> &schedule);
+
+    void start();
     void on_tick(unsigned int delta_ms);
     bool is_green_light(Side source, Side target);
 
