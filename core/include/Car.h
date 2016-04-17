@@ -3,9 +3,10 @@
 
 
 #include <vector>
+#include "Direction.h"
 #include "Side.h"
 
-class CrossroadPath;
+class Crossroad;
 class Lane;
 
 class Car {
@@ -27,10 +28,11 @@ private:
 
     State state;
     Lane *lane;
-    CrossroadPath *crossroad_path;
+    Lane *next_lane;
+    Crossroad *crossroad;
 
-    std::vector<Side> route;
-    std::vector<Side>::iterator route_it;
+    std::vector<Direction> route;
+    std::vector<Direction>::iterator route_it;
 
 public:
 
@@ -40,6 +42,7 @@ private:
 
     double calc_acceleration();
     Car* get_next_car();
+    Lane* choose_next_lane();
 };
 
 

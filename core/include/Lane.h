@@ -2,20 +2,23 @@
 #define TRAFFIC_SIMULATOR_LANE_H
 
 
-#include "CarPath.h"
+#include <list>
 #include "Side.h"
 
 
+class Car;
 class Crossroad;
 class Road;
 
-class Lane : public CarPath {
+class Lane {
 private:
 
     Road *road;
     int lane_num;
     Lane *left_adjacent;
     Lane *right_adjacent;
+
+    std::list<Car*> cars;
 
 public:
 
@@ -31,6 +34,12 @@ public:
 
     void set_left_adjacent(Lane *lane);
     void set_right_adjacent(Lane *lane);
+
+    int get_length();
+    Car* get_next_car(Car *car);
+    Car* get_first_car();
+    void arrive(Car *car);
+    void depart(Car *car);
 };
 
 

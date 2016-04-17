@@ -21,8 +21,8 @@ bool Crossroad::is_green_light(Lane *source, Lane *target) {
         return true;
 }
 
-CrossroadPath* Crossroad::get_crossroad_path(Side beg_side, int beg_lane_num, Side end_side, int end_lane_num) {
-    return nullptr;
+Road *Crossroad::get_road(Side side) {
+    return roads[side];
 }
 
 void Crossroad::set_traffic_light(TrafficLight *traffic_light_) {

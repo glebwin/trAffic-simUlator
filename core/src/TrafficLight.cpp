@@ -25,5 +25,5 @@ bool TrafficLight::is_green_light(Side source, Side target) {
 }
 
 int TrafficLight::get_mask(Side source, Side target) {
-    return 1 << (source * Side::SIDES_NUM + target);
+    return 1 << (source * SIDES_NUM + target);
 }

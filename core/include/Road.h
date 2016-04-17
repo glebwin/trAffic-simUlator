@@ -18,6 +18,8 @@ private:
     Crossroad *beg_crossroad;
     Crossroad *end_crossroad;
 
+    int length;
+
 public:
 
     Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Side end_side,
@@ -26,7 +28,17 @@ public:
 
     Side get_beg_side();
     Side get_end_side();
-    Crossroad* get_next_crossroad();
+    Side get_beg_side(Lane *lane);
+    Side get_end_side(Lane *lane);
+    Crossroad* get_next_crossroad(Side side);
+
+    Lane* get_lane(Side side, int num);
+
+    int get_length();
+
+private:
+
+    void calc_length(Crossroad *crossroad1, Crossroad *crossroad2);
 };
 
 
