@@ -31,6 +31,7 @@ public:
     Side get_beg_side(Lane *lane);
     Side get_end_side(Lane *lane);
     Crossroad* get_next_crossroad(Side side);
+    Lane* get_rand_lane(Side side);
 
     Lane* get_lane(Side side, int num);
 

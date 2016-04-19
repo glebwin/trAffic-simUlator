@@ -55,6 +55,13 @@ int Road::get_length() {
     return length;
 }
 
+Lane *Road::get_rand_lane(Side side) {
+    if(side == beg_side)
+        return forward_lanes[rand() % forward_lanes.size()];
+    else
+        return backward_lanes[rand() % backward_lanes.size()];
+}
+
 Lane* Road::get_lane(Side side, int num) {
     if (side == beg_side) {
         return forward_lanes[num];

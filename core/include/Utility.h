@@ -7,6 +7,7 @@
 
 namespace Utility {
     Side turn(Side turn_side, Direction turn_dir);
+    Side opposite(Side side);
 }
 
 #endif

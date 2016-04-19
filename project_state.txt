@@ -1,8 +1,0 @@
-works:
-    basic interaction of simulation's entities
-
-doesn't work:
-    initialization
-    lane changing
-    geometry binding
-    gui

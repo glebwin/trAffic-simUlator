@@ -5,6 +5,17 @@
 #include "../include/Road.h"
 #include "../include/Utility.h"
 
+Car::Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed, int max_acceleration,
+         int max_deceleration, Lane *lane, std::vector<Direction> &route)
+        : velocity(velocity), length(length), min_gap(min_gap), time_headway(time_headway),
+          cruise_speed(cruise_speed), max_acceleration(max_acceleration), max_deceleration(max_deceleration),
+          lane(lane), route(route),
+          coord(0), acceleration_exponent(4), state(MOVING_STRAIGHT) {
+    route_it = route.begin();
+    crossroad = lane->get_next_crossroad();
+    next_lane = choose_next_lane();
+}
+
 void Car::on_tick(unsigned int delta_ms) {
     if(state == DROVE_AWAY)  return;
 
@@ -21,14 +32,18 @@ void Car::on_tick(unsigned int delta_ms) {
             next_lane->arrive(this);
             lane = next_lane;
             crossroad = lane->get_next_crossroad();
-            next_lane = choose_next_lane();
             route_it++;
+            next_lane = choose_next_lane();
         }
         else {
             lane->depart(this);
             state = DROVE_AWAY;
         }
     }
+}
+
+bool Car::drove_away() {
+    return state == DROVE_AWAY;
 }
 
 double Car::calc_acceleration() {
@@ -66,6 +81,8 @@ Car* Car::get_next_car() {
 }
 
 Lane *Car::choose_next_lane() {
+    if(route_it == route.end())
+        return nullptr;
     Side targ_side = Utility::turn(lane->get_end_side(), *route_it);
     return crossroad->get_road(targ_side)->get_lane(targ_side, lane->get_num());
 }

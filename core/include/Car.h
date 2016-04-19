@@ -36,7 +36,11 @@ private:
 
 public:
 
+    Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed,
+        int max_acceleration, int max_deceleration, Lane *lane, std::vector<Direction> &route);
+
     void on_tick(unsigned int delta_ms);
+    bool drove_away();
 
 private:
 

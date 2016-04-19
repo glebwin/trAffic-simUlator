@@ -15,7 +15,7 @@ void Crossroad::on_tick(unsigned int delta_ms) {
 }
 
 bool Crossroad::is_green_light(Lane *source, Lane *target) {
-    if(traffic_light)
+    if(traffic_light && target)
         return traffic_light->is_green_light(source->get_end_side(), target->get_beg_side());
     else
         return true;

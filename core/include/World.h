@@ -4,10 +4,12 @@
 
 #include <string>
 #include <vector>
+#include "Direction.h"
 #include "Side.h"
 
 class Car;
 class Crossroad;
+class Lane;
 class Road;
 
 class World {
@@ -16,6 +18,7 @@ private:
     std::vector<Car*> cars;
     std::vector<Crossroad*> crossroads;
     std::vector<Road*> roads;
+    std::vector<std::pair<Road*, Side>> spawn_roads;
 
 public:
 
@@ -30,6 +33,8 @@ public:
 private:
 
     void get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, Side &beg_side, Side &end_side);
+    Car* gen_rand_car();
+    void gen_rand_route(Road *road, Side side, std::vector<Direction> &route);
 };
 
 #endif
