@@ -1,6 +1,6 @@
-#include "core/include/World.h"
+#include "graphics/include/Visualizer.h"
 
 int main() {
-    World *world = new World();
-    return 0;
+    Visualizer *prog = new Visualizer();
+    return prog->run();
 }
