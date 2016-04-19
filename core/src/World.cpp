@@ -33,6 +33,10 @@ void World::add_road(Road *road) {
     roads.push_back(road);
 }
 
+void World::add_spawn(Road *road, Side side) {
+    spawn_roads.push_back(std::make_pair(road, side));
+}
+
 void World::read_file(std::string file_name) {
     std::ifstream file_in(file_name);
 
@@ -81,8 +85,18 @@ void World::read_file(std::string file_name) {
             Side end_side;
             get_road_sides(beg_crossroad, end_crossroad, beg_side, end_side);
 
-            add_road(new Road(beg_crossroad, beg_side, end_crossroad, end_side,
-                              forward_lanes_num, backward_lanes_num));
+            Road *road = new Road(beg_crossroad, beg_side, end_crossroad, end_side,
+                                  forward_lanes_num, backward_lanes_num);
+            add_road(road);
+            add_spawn(road, road->get_beg_side());
+            add_spawn(road, road->get_end_side());
+        }
+        else if(type == "cars") {
+            unsigned int number;
+            stream >> number;
+            cars.reserve(number);
+            for(unsigned int i = 0; i < number; i++)
+                cars.push_back(gen_rand_car());
         }
     }
 }

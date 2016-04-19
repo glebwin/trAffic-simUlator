@@ -1,3 +1,4 @@
+#include "../include/Car.h"
 #include "../include/Lane.h"
 #include "../include/Road.h"
 
@@ -58,7 +59,17 @@ Car* Lane::get_first_car() {
 }
 
 void Lane::arrive(Car *car) {
-    cars.push_front(car);
+    int coord = car->get_lane_coord();
+    if(cars.empty() || coord >= cars.back()->get_lane_coord()) {
+        cars.insert(cars.end(), car);
+        return;
+    }
+
+    for(auto it = cars.begin(); ; ++it)
+        if(coord < (*it)->get_lane_coord()) {
+            cars.insert(it, car);
+            break;
+        }
 }
 
 void Lane::depart(Car *car) {

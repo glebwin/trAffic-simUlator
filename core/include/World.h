@@ -27,6 +27,7 @@ public:
     void add_car(Car *car);
     void add_crossroad(Crossroad *crossroad);
     void add_road(Road *road);
+    void add_spawn(Road *road, Side side);
 
     void read_file(std::string file_name);
 

@@ -41,6 +41,7 @@ public:
 
     void on_tick(unsigned int delta_ms);
     bool drove_away();
+    int get_lane_coord();
 
 private:
 

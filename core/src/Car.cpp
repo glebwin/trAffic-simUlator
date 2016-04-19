@@ -14,6 +14,7 @@ Car::Car(int velocity, int length, int min_gap, int time_headway, int cruise_spe
     route_it = route.begin();
     crossroad = lane->get_next_crossroad();
     next_lane = choose_next_lane();
+    lane->arrive(this);
 }
 
 void Car::on_tick(unsigned int delta_ms) {
@@ -73,7 +74,7 @@ Car* Car::get_next_car() {
 
     if(state == MOVING_STRAIGHT) {
         ret = lane->get_next_car(this);
-        if (!ret)
+        if (!ret && next_lane)
             ret = next_lane->get_first_car();
     }
 
@@ -85,4 +86,8 @@ Lane *Car::choose_next_lane() {
         return nullptr;
     Side targ_side = Utility::turn(lane->get_end_side(), *route_it);
     return crossroad->get_road(targ_side)->get_lane(targ_side, lane->get_num());
+}
+
+int Car::get_lane_coord() {
+    return coord;
 }
