@@ -29,10 +29,10 @@ void Crossroad::set_traffic_light(TrafficLight *traffic_light_) {
     traffic_light = traffic_light_;
 }
 
-std::pair<int, int> Crossroad::get_top_left_corner() {
+std::pair<int, int> Crossroad::get_top_left_corner() const {
     return top_left_corner;
 }
 
-std::pair<int, int> Crossroad::get_bott_right_corner() {
+std::pair<int, int> Crossroad::get_bott_right_corner() const {
     return bott_right_corner;
 }

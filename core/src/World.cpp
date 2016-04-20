@@ -150,3 +150,7 @@ void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route)
         side = Utility::turn(side, dir);
     }
 }
+
+const std::vector<Crossroad *>& World::get_crossroads() {
+    return crossroads;
+}

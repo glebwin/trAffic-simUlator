@@ -31,6 +31,8 @@ public:
 
     void read_file(std::string file_name);
 
+    const std::vector<Crossroad*>& get_crossroads();
+
 private:
 
     void get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, Side &beg_side, Side &end_side);
