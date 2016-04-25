@@ -10,9 +10,7 @@ private:
 
     sf::RenderWindow *window;
     const Crossroad *crossroad;
-    sf::RectangleShape *sprite;
-
-    static double outline_cf;
+    sf::RectangleShape sprite;
 
 public:
 

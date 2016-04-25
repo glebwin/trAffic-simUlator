@@ -3,7 +3,7 @@ project(traffic_simulator)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp core/src/World.cpp core/include/World.h core/src/World.cpp core/include/World.h core/src/World.cpp core/include/World.h core/src/Crossroad.cpp core/include/Crossroad.h core/src/TrafficLight.cpp core/include/TrafficLight.h core/src/Car.cpp core/include/Car.h core/src/Road.cpp core/include/Road.h core/src/Lane.cpp core/include/Lane.h core/include/Side.h core/include/Direction.h core/include/Utility.h core/src/Utility.cpp graphics/src/Visualizer.cpp graphics/include/Visualizer.h graphics/src/CrossroadVisual.cpp graphics/include/CrossroadVisual.h graphics/include/VisualizerConsts.h)
+set(SOURCE_FILES main.cpp core/src/World.cpp core/include/World.h core/src/World.cpp core/include/World.h core/src/World.cpp core/include/World.h core/src/Crossroad.cpp core/include/Crossroad.h core/src/TrafficLight.cpp core/include/TrafficLight.h core/src/Car.cpp core/include/Car.h core/src/Road.cpp core/include/Road.h core/src/Lane.cpp core/include/Lane.h core/include/Side.h core/include/Direction.h core/include/Utility.h core/src/Utility.cpp graphics/src/Visualizer.cpp graphics/include/Visualizer.h graphics/src/CrossroadVisual.cpp graphics/include/CrossroadVisual.h graphics/include/VisConsts.h graphics/src/RoadVisual.cpp graphics/include/RoadVisual.h graphics/include/VisConsts.h)
 add_executable(traffic_simulator ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")

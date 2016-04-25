@@ -7,6 +7,7 @@
 #include "../../core/include/World.h"
 
 class CrossroadVisual;
+class RoadVisual;
 
 class Visualizer {
 private:
@@ -15,6 +16,7 @@ private:
     World *world;
 
     std::vector<CrossroadVisual*> crossroads;
+    std::vector<RoadVisual*> roads;
 
 public:
 

@@ -51,8 +51,20 @@ Crossroad* Road::get_next_crossroad(Side side) {
         return beg_crossroad;
 }
 
-int Road::get_length() {
-    return length;
+Crossroad *Road::get_beg_crossroad() const {
+    return beg_crossroad;
+}
+
+Crossroad *Road::get_end_crossroad() const {
+    return end_crossroad;
+}
+
+const std::vector<Lane *>& Road::get_forward_lanes() const {
+    return forward_lanes;
+}
+
+const std::vector<Lane *>& Road::get_backward_lanes() const {
+    return backward_lanes;
 }
 
 Lane *Road::get_rand_lane(Side side) {
@@ -69,6 +81,10 @@ Lane* Road::get_lane(Side side, int num) {
     else {
         return backward_lanes[num];
     }
+}
+
+int Road::get_length() {
+    return length;
 }
 
 void Road::calc_length(Crossroad *crossroad1, Crossroad *crossroad2) {

@@ -1,15 +1,24 @@
 #include <chrono>
 #include "../include/CrossroadVisual.h"
+#include "../include/RoadVisual.h"
 #include "../include/Visualizer.h"
+#include "../include/VisConsts.h"
 
 Visualizer::Visualizer(World *world)
         : world(world) {
     window = new sf::RenderWindow(sf::VideoMode(800, 600), "Traffic Simulator");
+
+    VisConsts::get().scale = window->getSize().x / 40;
+
     const std::vector<Crossroad*> &world_crossroads = world->get_crossroads();
     crossroads.reserve(world_crossroads.size());
-
     for(Crossroad *crossroad : world_crossroads)
         crossroads.push_back(new CrossroadVisual(window, crossroad));
+
+    const std::vector<Road*> &world_roads = world->get_roads();
+    roads.reserve(world_roads.size());
+    for(Road *road : world_roads)
+        roads.push_back(new RoadVisual(window, road));
 }
 
 int Visualizer::run() {
@@ -42,4 +51,6 @@ void Visualizer::handle_event(sf::Event &event) {
 void Visualizer::draw() {
     for(CrossroadVisual *crossroad : crossroads)
         crossroad->draw();
+    for(RoadVisual *road : roads)
+        road->draw();
 }

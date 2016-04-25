@@ -32,6 +32,7 @@ public:
     void read_file(std::string file_name);
 
     const std::vector<Crossroad*>& get_crossroads();
+    const std::vector<Road*>& get_roads();
 
 private:
 

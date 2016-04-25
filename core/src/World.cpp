@@ -154,3 +154,7 @@ void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route)
 const std::vector<Crossroad *>& World::get_crossroads() {
     return crossroads;
 }
+
+const std::vector<Road *>& World::get_roads() {
+    return roads;
+}

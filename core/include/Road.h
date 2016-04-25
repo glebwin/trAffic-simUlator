@@ -31,8 +31,11 @@ public:
     Side get_beg_side(Lane *lane);
     Side get_end_side(Lane *lane);
     Crossroad* get_next_crossroad(Side side);
+    Crossroad* get_beg_crossroad() const;
+    Crossroad* get_end_crossroad() const;
+    const std::vector<Lane*>& get_forward_lanes() const;
+    const std::vector<Lane*>& get_backward_lanes() const;
     Lane* get_rand_lane(Side side);
-
     Lane* get_lane(Side side, int num);
 
     int get_length();
