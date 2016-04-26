@@ -2,6 +2,7 @@
 #define TRAFFIC_SIMULATOR_ROADVISUAL_H
 
 
+#include <vector>
 #include <SFML/Graphics.hpp>
 class Road;
 
@@ -12,7 +13,10 @@ private:
     const Road *road;
 
     sf::RectangleShape sprite_asphalt;
-    sf::RectangleShape sprite_solid_lane;
+    sf::RectangleShape sprite_solid_line;
+    sf::RectangleShape sprite_dashed_line;
+    std::vector<double> dashed_line_xs;
+    std::vector<double> dashed_line_ys;
 
 public:
 
@@ -22,7 +26,8 @@ public:
 private:
 
     void set_sprite_asphalt();
-    void set_sprite_solid_lane();
+    void set_sprite_solid_line();
+    void set_sprites_dashed_lines();
 };
 
 

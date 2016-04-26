@@ -13,11 +13,15 @@ public:
     const double road_outline_thickness;
     double scale;
     const double marking_thickness;
+    const double dash_len;
+    const double dash_padd;
+    const double dash_thick;
 
 private:
 
-    VisConsts() : asphalt_col(120, 120, 120), road_outline_col(230, 230, 230),
-                  marking_col(250, 250, 250), road_outline_thickness(0.1), marking_thickness(0.2) {}
+    VisConsts() : asphalt_col(130, 130, 130), road_outline_col(230, 230, 230),
+                  marking_col(250, 250, 250), road_outline_thickness(0.1), marking_thickness(0.2),
+                  dash_len(0.8), dash_padd(0.2), dash_thick(0.1) {}
     VisConsts(const VisConsts&);
     VisConsts& operator=(VisConsts&);
 
