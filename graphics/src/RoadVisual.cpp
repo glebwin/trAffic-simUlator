@@ -16,12 +16,9 @@ void RoadVisual::draw() {
     window->draw(sprite_asphalt);
     window->draw(sprite_solid_line);
 
-//    std::ofstream out("dash.txt");
     for(double x : dashed_line_xs)
         for(double y : dashed_line_ys) {
             sprite_dashed_line.setPosition(x, y);
-//            out << sprite_dashed_line.getPosition().x << ' ' << sprite_dashed_line.getPosition().y
-//                    << ' ' << sprite_dashed_line.getSize().x << ' ' << sprite_dashed_line.getSize().y << ' ' << sprite_dashed_line.getScale().x << ' ' << sprite_dashed_line.getScale().y << '\n';
             window->draw(sprite_dashed_line);
         }
 }
@@ -33,15 +30,27 @@ void RoadVisual::set_sprite_asphalt() {
     auto cr1_br_corner = crossroad1->get_bott_right_corner();
     auto cr2_tl_corner = crossroad2->get_top_left_corner();
     auto cr2_br_corner = crossroad2->get_bott_right_corner();
+    bool horizontal = cr1_tl_corner.second == cr2_tl_corner.second;
 
-    std::pair<int, int> top_left_corner(std::min(cr1_br_corner.first, cr2_br_corner.first),
-                                        std::min(cr1_tl_corner.second, cr2_tl_corner.second));
-    std::pair<int, int> bott_right_corner(std::max(cr1_tl_corner.first, cr2_tl_corner.first),
-                                          std::max(cr1_br_corner.second, cr2_br_corner.second));
+    std::pair<double, double> top_left_corner;
+    std::pair<double, double> bott_right_corner;
+
+    if(horizontal) {
+        top_left_corner = std::make_pair(std::min(cr1_br_corner.first, cr2_br_corner.first) + VisConsts::get().road_outline_thickness,
+                                         std::min(cr1_tl_corner.second, cr2_tl_corner.second));
+        bott_right_corner = std::make_pair(std::max(cr1_tl_corner.first, cr2_tl_corner.first) - VisConsts::get().road_outline_thickness,
+                                           std::max(cr1_br_corner.second, cr2_br_corner.second));
+    }
+    else {
+        top_left_corner = std::make_pair(std::min(cr1_tl_corner.first, cr2_tl_corner.first),
+                                         std::min(cr1_br_corner.second, cr2_br_corner.second) + VisConsts::get().road_outline_thickness);
+        bott_right_corner = std::make_pair(std::max(cr1_br_corner.first, cr2_br_corner.first),
+                                           std::max(cr1_tl_corner.second, cr2_tl_corner.second) - VisConsts::get().road_outline_thickness);
+    }
 
     sprite_asphalt.setPosition(top_left_corner.first, top_left_corner.second);
     sprite_asphalt.setSize(sf::Vector2f(bott_right_corner.first - top_left_corner.first,
-                                         bott_right_corner.second - top_left_corner.second));
+                                        bott_right_corner.second - top_left_corner.second));
     sprite_asphalt.setOutlineThickness(VisConsts::get().road_outline_thickness);
     sprite_asphalt.setFillColor(VisConsts::get().asphalt_col);
     sprite_asphalt.setOutlineColor(VisConsts::get().road_outline_col);
@@ -93,7 +102,7 @@ void RoadVisual::set_sprite_solid_line() {
         int y_bott = std::max(beg_crossroad->get_top_left_corner().second,
                               end_crossroad->get_top_left_corner().second);
         sprite_solid_line.setPosition(mid - VisConsts::get().marking_thickness / 2, y_top);
-        sprite_solid_line.setSize(sf::Vector2f((y_bott - y_top), VisConsts::get().marking_thickness));
+        sprite_solid_line.setSize(sf::Vector2f(VisConsts::get().marking_thickness, (y_bott - y_top)));
     }
 
     sprite_solid_line.setPosition(sprite_solid_line.getPosition().x * VisConsts::get().scale,
@@ -126,11 +135,55 @@ void RoadVisual::set_sprites_dashed_lines() {
                     x += VisConsts::get().dash_len + VisConsts::get().dash_padd)
                 dashed_line_xs.push_back(x);
         }
+        else {
+            double y = beg_crossroad->get_top_left_corner().second + step - VisConsts::get().dash_thick / 2;
+            for(int i = 1; i < backward_lanes_num; i++, y += step)
+                dashed_line_ys.push_back(y);
+            y = beg_crossroad->get_top_left_corner().second + step * (backward_lanes_num + 1) - VisConsts::get().dash_thick / 2;
+            for(int i = 1; i < forward_lanes_num; i++, y += step)
+                dashed_line_ys.push_back(y);
 
-        sprite_dashed_line.setSize(sf::Vector2f(VisConsts::get().dash_len, VisConsts::get().marking_thickness));
+            for(double x = end_crossroad->get_bott_right_corner().first + VisConsts::get().dash_padd / 2;
+                x + VisConsts::get().dash_len < beg_crossroad->get_top_left_corner().first;
+                x += VisConsts::get().dash_len + VisConsts::get().dash_padd)
+                dashed_line_xs.push_back(x);
+        }
+
+        sprite_dashed_line.setSize(sf::Vector2f(VisConsts::get().dash_len, VisConsts::get().dash_thick));
     }
     else {
+        int road_width = beg_crossroad->get_bott_right_corner().first - beg_crossroad->get_top_left_corner().first;
+        unsigned long forward_lanes_num = road->get_forward_lanes().size();
+        unsigned long backward_lanes_num = road->get_backward_lanes().size();
+        double step = road_width / (static_cast<double>(forward_lanes_num) + backward_lanes_num);
+        if(beg_crossroad->get_top_left_corner().second < end_crossroad->get_top_left_corner().second) {
+            double x = beg_crossroad->get_top_left_corner().first + step - VisConsts::get().dash_thick / 2;
+            for(int i = 1; i < forward_lanes_num; i++, x += step)
+                dashed_line_xs.push_back(x);
+            x = beg_crossroad->get_top_left_corner().first + step * (forward_lanes_num + 1) - VisConsts::get().dash_thick / 2;
+            for(int i = 1; i < backward_lanes_num; i++, x += step)
+                dashed_line_xs.push_back(x);
 
+            for(double y = beg_crossroad->get_bott_right_corner().second + VisConsts::get().dash_padd / 2;
+                y + VisConsts::get().dash_len < end_crossroad->get_top_left_corner().second;
+                y += VisConsts::get().dash_len + VisConsts::get().dash_padd)
+                dashed_line_ys.push_back(y);
+        }
+        else {
+            double x = beg_crossroad->get_top_left_corner().first + step - VisConsts::get().dash_thick / 2;
+            for(int i = 1; i < backward_lanes_num; i++, x += step)
+                dashed_line_xs.push_back(x);
+            x = beg_crossroad->get_top_left_corner().first + step * (backward_lanes_num + 1) - VisConsts::get().dash_thick / 2;
+            for(int i = 1; i < forward_lanes_num; i++, x += step)
+                dashed_line_xs.push_back(x);
+
+            for(double y = end_crossroad->get_bott_right_corner().second + VisConsts::get().dash_padd / 2;
+                y + VisConsts::get().dash_len < beg_crossroad->get_top_left_corner().second;
+                y += VisConsts::get().dash_len + VisConsts::get().dash_padd)
+                dashed_line_ys.push_back(y);
+        }
+
+        sprite_dashed_line.setSize(sf::Vector2f(VisConsts::get().dash_thick, VisConsts::get().dash_len));
     }
 
     for(double &x : dashed_line_xs)
@@ -139,5 +192,4 @@ void RoadVisual::set_sprites_dashed_lines() {
         y *= VisConsts::get().scale;
     sprite_dashed_line.setScale(sf::Vector2f(VisConsts::get().scale, VisConsts::get().scale));
     sprite_dashed_line.setFillColor(VisConsts::get().marking_col);
-    sprite_dashed_line.setSize(sf::Vector2f(VisConsts::get().dash_len, VisConsts::get().dash_thick));
 }
