@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "../../core/include/World.h"
 
+class CarVisual;
 class CrossroadVisual;
 class RoadVisual;
 
@@ -15,6 +16,7 @@ private:
     sf::RenderWindow *window;
     World *world;
 
+    std::vector<CarVisual*> cars;
     std::vector<CrossroadVisual*> crossroads;
     std::vector<RoadVisual*> roads;
 
@@ -28,6 +30,7 @@ private:
 
     void handle_event(sf::Event &event);
     void draw();
+    void update_cars();
 };
 
 

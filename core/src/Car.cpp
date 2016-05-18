@@ -6,11 +6,11 @@
 #include "../include/Utility.h"
 
 Car::Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed, int max_acceleration,
-         int max_deceleration, Lane *lane, std::vector<Direction> &route)
+         int max_deceleration, Lane *lane, std::vector<Direction> &route, int id)
         : velocity(velocity), length(length), min_gap(min_gap), time_headway(time_headway),
           cruise_speed(cruise_speed), max_acceleration(max_acceleration), max_deceleration(max_deceleration),
           lane(lane), route(route),
-          coord(0), acceleration_exponent(4), state(MOVING_STRAIGHT) {
+          coord(0), acceleration_exponent(4), state(MOVING_STRAIGHT), id(id) {
     route_it = route.begin();
     crossroad = lane->get_next_crossroad();
     next_lane = choose_next_lane();
@@ -81,7 +81,7 @@ Car* Car::get_next_car() {
     return ret;
 }
 
-Lane *Car::choose_next_lane() {
+Lane* Car::choose_next_lane() {
     if(route_it == route.end())
         return nullptr;
     Side targ_side = Utility::turn(lane->get_end_side(), *route_it);
@@ -90,4 +90,16 @@ Lane *Car::choose_next_lane() {
 
 int Car::get_lane_coord() {
     return coord;
+}
+
+int Car::get_length() const {
+    return length;
+}
+
+int Car::get_id() const {
+    return id;
+}
+
+Lane *Car::get_lane() const {
+    return lane;
 }

@@ -10,8 +10,6 @@ RoadVisual::RoadVisual(sf::RenderWindow *window, const Road *road)
     set_sprites_dashed_lines();
 }
 
-#include <fstream>
-
 void RoadVisual::draw() {
     window->draw(sprite_asphalt);
     window->draw(sprite_solid_line);

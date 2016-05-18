@@ -1,4 +1,5 @@
 #include "../include/Car.h"
+#include "../include/Crossroad.h"
 #include "../include/Lane.h"
 #include "../include/Road.h"
 
@@ -78,4 +79,84 @@ void Lane::depart(Car *car) {
             cars.erase(it);
             break;
         }
+}
+
+bool Lane::is_hor() {
+    return road->is_hor();
+}
+
+std::pair<int, int> Lane::get_beg() {
+    Side lane_side = road->get_beg_side(this);
+    Side road_beg = road->get_beg_side();
+    Side road_end = road->get_end_side();
+    Crossroad *cr = road->get_next_crossroad(lane_side);
+    double lane_width = static_cast<double>(road->get_width()) /
+                        (road->get_forward_lanes().size() + road->get_backward_lanes().size());
+
+    switch(lane_side) {
+        case TOP:
+            if(road_beg == TOP)
+                return std::pair<int, int>(cr->get_top_left_corner().first +
+                                           lane_width * (road->get_forward_lanes().size() - lane_num - 1) +
+                                           lane_width / 2,
+                                           cr->get_bott_right_corner().second);
+            else
+                return std::pair<int, int>(cr->get_top_left_corner().first +
+                                           lane_width * (road->get_backward_lanes().size() - lane_num - 1) +
+                                           lane_width / 2,
+                                           cr->get_bott_right_corner().second);
+        case RIGHT:
+            if(road_beg == RIGHT)
+                return std::pair<int, int>(cr->get_top_left_corner().first,
+                                           cr->get_top_left_corner().second +
+                                           lane_width * (road->get_forward_lanes().size() - lane_num - 1) +
+                                           lane_width / 2);
+            else
+                return std::pair<int, int>(cr->get_top_left_corner().first,
+                                           cr->get_top_left_corner().second +
+                                           lane_width * (road->get_backward_lanes().size() - lane_num - 1) +
+                                           lane_width / 2);
+        case BOTTOM:
+            if(road_beg == BOTTOM)
+                return std::pair<int, int>(cr->get_top_left_corner().first +
+                                           lane_width * (road->get_backward_lanes().size() + lane_num) +
+                                           lane_width / 2,
+                                           cr->get_top_left_corner().second);
+            else
+                return std::pair<int, int>(cr->get_top_left_corner().first +
+                                           lane_width * (road->get_forward_lanes().size() + lane_num) +
+                                           lane_width / 2,
+                                           cr->get_top_left_corner().second);
+        case LEFT:
+            if(road_beg == LEFT)
+                return std::pair<int, int>(cr->get_bott_right_corner().first,
+                                           cr->get_bott_right_corner().second +
+                                           lane_width * (road->get_backward_lanes().size() + lane_num) +
+                                           lane_width / 2);
+            else
+                return std::pair<int, int>(cr->get_bott_right_corner().first,
+                                           cr->get_bott_right_corner().second +
+                                           lane_width * (road->get_forward_lanes().size() + lane_num) +
+                                           lane_width / 2);
+    }
+}
+
+std::pair<int, int> Lane::get_end() {
+    std::pair<int, int> res = get_beg();
+    Side side = road->get_beg_side(this);
+    switch(side) {
+        case TOP:
+            res.second += road->get_length();
+            break;
+        case RIGHT:
+            res.first  -= road->get_length();
+            break;
+        case BOTTOM:
+            res.second -= road->get_length();
+            break;
+        case LEFT:
+            res.first  += road->get_length();
+            break;
+    }
+    return res;
 }

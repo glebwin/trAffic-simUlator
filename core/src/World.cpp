@@ -9,6 +9,13 @@
 #include "../include/Utility.h"
 #include "../include/World.h"
 
+World::World()
+        : car_counter(0) {
+}
+
+World::~World() {
+}
+
 void World::on_tick(unsigned int delta_ms) {
     for(auto it : cars) {
         if(it->drove_away()) {
@@ -130,7 +137,8 @@ Car* World::gen_rand_car() {
     std::vector<Direction> route;
     gen_rand_route(spawn.first, spawn.second, route);
     return new Car(rand() % 750000 + 250000, rand() % 1000 + 2500, rand() % 500 + 500,
-                   rand() % 2000 + 500, rand() % 6000000 + 8000000, rand(), rand(), lane, route);
+                   rand() % 2000 + 500, rand() % 6000000 + 8000000, rand(), rand(),
+                   lane, route, car_counter++);
 }
 
 void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route) {
@@ -149,6 +157,10 @@ void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route)
         road = next_road;
         side = Utility::turn(side, dir);
     }
+}
+
+const std::vector<Car*> &World::get_cars() {
+    return cars;
 }
 
 const std::vector<Crossroad *>& World::get_crossroads() {

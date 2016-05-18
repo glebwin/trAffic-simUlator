@@ -40,6 +40,10 @@ public:
     Car* get_first_car();
     void arrive(Car *car);
     void depart(Car *car);
+    bool is_hor();
+
+    std::pair<int, int> get_beg();
+    std::pair<int, int> get_end();
 };
 
 

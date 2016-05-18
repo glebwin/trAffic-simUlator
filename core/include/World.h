@@ -20,7 +20,12 @@ private:
     std::vector<Road*> roads;
     std::vector<std::pair<Road*, Side>> spawn_roads;
 
+    int car_counter;
+
 public:
+
+    World();
+    ~World();
 
     void on_tick(unsigned int delta_ms);
 
@@ -31,6 +36,7 @@ public:
 
     void read_file(std::string file_name);
 
+    const std::vector<Car*>& get_cars();
     const std::vector<Crossroad*>& get_crossroads();
     const std::vector<Road*>& get_roads();
 

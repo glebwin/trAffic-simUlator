@@ -1,7 +1,6 @@
 #ifndef TRAFFIC_SIMULATOR_CAR_H
 #define TRAFFIC_SIMULATOR_CAR_H
 
-
 #include <vector>
 #include "Direction.h"
 #include "Side.h"
@@ -34,14 +33,19 @@ private:
     std::vector<Direction> route;
     std::vector<Direction>::iterator route_it;
 
+    int id;
+
 public:
 
     Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed,
-        int max_acceleration, int max_deceleration, Lane *lane, std::vector<Direction> &route);
+        int max_acceleration, int max_deceleration, Lane *lane, std::vector<Direction> &route, int id);
 
     void on_tick(unsigned int delta_ms);
     bool drove_away();
     int get_lane_coord();
+    int get_length() const;
+    int get_id() const;
+    Lane* get_lane() const;
 
 private:
 

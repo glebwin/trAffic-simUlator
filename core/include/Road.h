@@ -37,8 +37,9 @@ public:
     const std::vector<Lane*>& get_backward_lanes() const;
     Lane* get_rand_lane(Side side);
     Lane* get_lane(Side side, int num);
-
     int get_length();
+    bool is_hor();
+    int get_width();
 
 private:
 

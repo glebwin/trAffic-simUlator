@@ -92,8 +92,25 @@ void Road::calc_length(Crossroad *crossroad1, Crossroad *crossroad2) {
     auto br1 = crossroad1->get_bott_right_corner();
     auto tl2 = crossroad2->get_top_left_corner();
     auto br2 = crossroad2->get_bott_right_corner();
-    if(tl1.second == tl2.second)
+    if(is_hor())
         length = std::max(tl2.first - br1.first, tl1.first - br2.first);
     else
         length = std::max(tl2.second - br1.second, tl1.second - br2.second);
+}
+
+bool Road::is_hor() {
+    return beg_crossroad->get_top_left_corner().second == end_crossroad->get_top_left_corner().second;
+}
+
+int Road::get_width() {
+    switch(beg_side) {
+        case TOP:
+            return end_crossroad->get_top_left_corner().second - beg_crossroad->get_bott_right_corner().second;
+        case RIGHT:
+            return beg_crossroad->get_top_left_corner().first - end_crossroad->get_bott_right_corner().first;
+        case BOTTOM:
+            return beg_crossroad->get_top_left_corner().second - end_crossroad->get_bott_right_corner().second;
+        case LEFT:
+            return end_crossroad->get_top_left_corner().first - beg_crossroad->get_bott_right_corner().first;
+    }
 }
