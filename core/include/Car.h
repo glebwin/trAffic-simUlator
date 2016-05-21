@@ -42,7 +42,7 @@ public:
 
     void on_tick(unsigned int delta_ms);
     bool drove_away();
-    int get_lane_coord();
+    int get_lane_coord() const;
     int get_length() const;
     int get_id() const;
     Lane* get_lane() const;

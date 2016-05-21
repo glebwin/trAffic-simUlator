@@ -21,7 +21,7 @@ void Car::on_tick(unsigned int delta_ms) {
     if(state == DROVE_AWAY)  return;
 
     double acceleration = calc_acceleration();
-    coord += velocity * static_cast<int>(delta_ms) + 0.5 * acceleration * pow(delta_ms, 2);
+    coord += velocity * static_cast<int>(delta_ms) + 0.5 * acceleration * std::pow(delta_ms, 2);
     velocity += acceleration * delta_ms;
 
     if(state == MOVING_STRAIGHT && coord >= lane->get_length()
@@ -52,17 +52,17 @@ double Car::calc_acceleration() {
     double interaction_term = 0;
     double traffic_light_term = 0;
 
-    free_road_term = pow(static_cast<double>(velocity) / cruise_speed, acceleration_exponent);
+    free_road_term = std::pow(static_cast<double>(velocity) / cruise_speed, acceleration_exponent);
 
     Car *next_car = get_next_car();
     if(next_car)
-        interaction_term = pow(
-                               (min_gap + static_cast<double>(velocity)*time_headway + static_cast<double>(velocity)*(velocity-next_car->velocity) / (2*sqrt(static_cast<double>(max_acceleration)*max_deceleration))) /
+        interaction_term = std::pow(
+                               (min_gap + static_cast<double>(velocity)*time_headway + static_cast<double>(velocity)*(velocity-next_car->velocity) / (2*std::sqrt(static_cast<double>(max_acceleration)*max_deceleration))) /
                                    (next_car->coord - next_car->length - coord),
                                 2);
 
     if(state == MOVING_STRAIGHT && !crossroad->is_green_light(lane, next_lane))
-        traffic_light_term = pow((1 + static_cast<double>(velocity)*time_headway + pow(velocity, 2) / (2 * max_deceleration)) / (lane->get_length() - coord), 2);
+        traffic_light_term = std::pow((1 + static_cast<double>(velocity)*time_headway + std::pow(velocity, 2) / (2 * max_deceleration)) / (lane->get_length() - coord), 2);
 
     double acceleration = max_acceleration * (1 - free_road_term - interaction_term - traffic_light_term);
 
@@ -88,7 +88,7 @@ Lane* Car::choose_next_lane() {
     return crossroad->get_road(targ_side)->get_lane(targ_side, lane->get_num());
 }
 
-int Car::get_lane_coord() {
+int Car::get_lane_coord() const {
     return coord;
 }
 

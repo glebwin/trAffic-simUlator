@@ -159,7 +159,7 @@ void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route)
     }
 }
 
-const std::vector<Car*> &World::get_cars() {
+const std::vector<Car*>& World::get_cars() {
     return cars;
 }
 

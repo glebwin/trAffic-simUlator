@@ -8,12 +8,13 @@ CarVisual::CarVisual(sf::RenderWindow *window, const Car &car)
     id = car.get_id();
 
     sprite.setOrigin(car.get_length(), VisConsts::get().car_width / 2);
+    sprite.setSize(sf::Vector2f(car.get_length(), VisConsts::get().car_width));
     sprite.setScale(VisConsts::get().scale, VisConsts::get().scale);
     sprite.setFillColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
 }
 
 void CarVisual::draw() {
-    calc_coord();
+    calc_pos();
     window->draw(sprite);
 }
 
@@ -21,10 +22,28 @@ int CarVisual::get_id() {
     return id;
 }
 
-void CarVisual::calc_coord() {
-    std::pair<int, int> beg_coord = car.get_lane()->get_beg();
-    std::pair<int, int> end_coord = car.get_lane()->get_end();
-    if(car.get_lane()->is_hor()) {
+void CarVisual::calc_pos() {
+    Lane *lane = car.get_lane();
+    std::pair<int, int> beg_coord = lane->get_beg();
+    int pos = car.get_lane_coord();
+    const int quart_ang = 90;
 
+    switch(lane->get_beg_side()) {
+        case TOP:
+            sprite.setRotation(quart_ang * 3);
+            sprite.setPosition(beg_coord.first, beg_coord.second + pos);
+            break;
+        case RIGHT:
+            sprite.setRotation(quart_ang * 2);
+            sprite.setPosition(beg_coord.first - pos, beg_coord.second);
+            break;
+        case BOTTOM:
+            sprite.setRotation(quart_ang);
+            sprite.setPosition(beg_coord.first, beg_coord.second - pos);
+            break;
+        case LEFT:
+            sprite.setRotation(0);
+            sprite.setPosition(beg_coord.first + pos, beg_coord.second);
+            break;
     }
 }

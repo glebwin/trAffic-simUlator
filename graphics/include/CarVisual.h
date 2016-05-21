@@ -23,7 +23,7 @@ public:
 
 private:
 
-    void calc_coord();
+    void calc_pos();
 };
 
 
