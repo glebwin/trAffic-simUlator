@@ -136,7 +136,7 @@ Car* World::gen_rand_car() {
     Lane *lane = spawn.first->get_rand_lane(spawn.second);
     std::vector<Direction> route;
     gen_rand_route(spawn.first, spawn.second, route);
-    return new Car(rand() % 750000 + 250000, rand() % 1000 + 2500, rand() % 500 + 500,
+    return new Car((rand() % 1000 + 7500) / 1000.0, rand() % 600 + 2000, rand() % 500 + 500,
                    rand() % 2000 + 500, rand() % 6000000 + 8000000, (rand() % 1000 + 2000) / 1000000.0, (rand() % 1000 + 2000) / 1000000.0,
                    lane, route, car_counter++);
 }

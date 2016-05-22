@@ -41,7 +41,6 @@ void Car::on_tick(unsigned int delta_ms) {
             state = DROVE_AWAY;
         }
     }
-    coord = 0;
 }
 
 bool Car::drove_away() {

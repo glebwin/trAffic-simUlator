@@ -35,7 +35,7 @@ void CarVisual::calc_pos() {
             break;
         case RIGHT:
             sprite.setRotation(quart_ang * 2);
-            sprite.setPosition(beg_coord.first - pos, beg_coord.second);
+            sprite.setPosition(beg_coord.first + pos, beg_coord.second);
             break;
         case BOTTOM:
             sprite.setRotation(quart_ang);
@@ -43,7 +43,7 @@ void CarVisual::calc_pos() {
             break;
         case LEFT:
             sprite.setRotation(0);
-            sprite.setPosition(beg_coord.first + pos, beg_coord.second);
+            sprite.setPosition(beg_coord.first - pos, beg_coord.second);
             break;
     }
     sprite.setPosition(sprite.getPosition().x * VisConsts::get().scale,
