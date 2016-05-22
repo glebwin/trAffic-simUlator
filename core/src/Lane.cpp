@@ -107,12 +107,12 @@ std::pair<int, int> Lane::get_beg() {
                                            cr->get_bott_right_corner().second);
         case RIGHT:
             if(road_beg == RIGHT)
-                return std::pair<int, int>(cr->get_top_left_corner().first,
+                return std::pair<int, int>(cr->get_bott_right_corner().first,
                                            cr->get_top_left_corner().second +
                                            lane_width * (road->get_forward_lanes().size() - lane_num - 1) +
                                            lane_width / 2);
             else
-                return std::pair<int, int>(cr->get_top_left_corner().first,
+                return std::pair<int, int>(cr->get_bott_right_corner().first,
                                            cr->get_top_left_corner().second +
                                            lane_width * (road->get_backward_lanes().size() - lane_num - 1) +
                                            lane_width / 2);
@@ -129,12 +129,12 @@ std::pair<int, int> Lane::get_beg() {
                                            cr->get_top_left_corner().second);
         case LEFT:
             if(road_beg == LEFT)
-                return std::pair<int, int>(cr->get_bott_right_corner().first,
+                return std::pair<int, int>(cr->get_top_left_corner().first,
                                            cr->get_top_left_corner().second +
                                            lane_width * (road->get_backward_lanes().size() + lane_num) +
                                            lane_width / 2);
             else
-                return std::pair<int, int>(cr->get_bott_right_corner().first,
+                return std::pair<int, int>(cr->get_top_left_corner().first,
                                            cr->get_top_left_corner().second +
                                            lane_width * (road->get_forward_lanes().size() + lane_num) +
                                            lane_width / 2);

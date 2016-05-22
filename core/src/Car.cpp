@@ -29,7 +29,6 @@ void Car::on_tick(unsigned int delta_ms) {
         if(route_it != route.end()) {
             coord -= lane->get_length();
             lane->depart(this);
-            coord -= 6000;
             next_lane->arrive(this);
             lane = next_lane;
             crossroad = lane->get_next_crossroad();

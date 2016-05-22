@@ -30,19 +30,19 @@ void CarVisual::calc_pos() {
 
     switch(lane->get_beg_side()) {
         case TOP:
-            sprite.setRotation(quart_ang * 3);
+            sprite.setRotation(quart_ang);
             sprite.setPosition(beg_coord.first, beg_coord.second + pos);
             break;
         case RIGHT:
-            sprite.setRotation(quart_ang * 2);
+            sprite.setRotation(0);
             sprite.setPosition(beg_coord.first + pos, beg_coord.second);
             break;
         case BOTTOM:
-            sprite.setRotation(quart_ang);
+            sprite.setRotation(quart_ang * 3);
             sprite.setPosition(beg_coord.first, beg_coord.second - pos);
             break;
         case LEFT:
-            sprite.setRotation(0);
+            sprite.setRotation(quart_ang * 2);
             sprite.setPosition(beg_coord.first - pos, beg_coord.second);
             break;
     }
