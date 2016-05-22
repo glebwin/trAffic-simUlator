@@ -21,8 +21,8 @@ private:
     int min_gap;
     int time_headway;
     int cruise_speed;
-    int max_acceleration;
-    int max_deceleration;
+    double max_acceleration;
+    double max_deceleration;
     int acceleration_exponent;
 
     State state;
@@ -38,7 +38,7 @@ private:
 public:
 
     Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed,
-        int max_acceleration, int max_deceleration, Lane *lane, std::vector<Direction> &route, int id);
+        double max_acceleration, double max_deceleration, Lane *lane, std::vector<Direction> &route, int id);
 
     void on_tick(unsigned int delta_ms);
     bool drove_away();

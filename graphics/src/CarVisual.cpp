@@ -46,4 +46,6 @@ void CarVisual::calc_pos() {
             sprite.setPosition(beg_coord.first + pos, beg_coord.second);
             break;
     }
+    sprite.setPosition(sprite.getPosition().x * VisConsts::get().scale,
+                       sprite.getPosition().y * VisConsts::get().scale);
 }

@@ -103,14 +103,8 @@ bool Road::is_hor() {
 }
 
 int Road::get_width() {
-    switch(beg_side) {
-        case TOP:
-            return end_crossroad->get_top_left_corner().second - beg_crossroad->get_bott_right_corner().second;
-        case RIGHT:
-            return beg_crossroad->get_top_left_corner().first - end_crossroad->get_bott_right_corner().first;
-        case BOTTOM:
-            return beg_crossroad->get_top_left_corner().second - end_crossroad->get_bott_right_corner().second;
-        case LEFT:
-            return end_crossroad->get_top_left_corner().first - beg_crossroad->get_bott_right_corner().first;
-    }
+    if(beg_side == TOP || beg_side == BOTTOM)
+        return beg_crossroad->get_bott_right_corner().first - beg_crossroad->get_top_left_corner().first;
+    else
+        return beg_crossroad->get_bott_right_corner().second - beg_crossroad->get_top_left_corner().second;
 }

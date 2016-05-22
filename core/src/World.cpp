@@ -111,22 +111,22 @@ void World::read_file(std::string file_name) {
 void World::get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, Side &beg_side, Side &end_side) {
     if(beg_crossroad->get_top_left_corner().first == end_crossroad->get_top_left_corner().first) {
         if(beg_crossroad->get_top_left_corner().second < end_crossroad->get_top_left_corner().second) {
+            beg_side = TOP;
+            end_side = BOTTOM;
+        }
+        else {
+            beg_side = BOTTOM;
+            end_side = TOP;
+        }
+    }
+    else {
+        if(beg_crossroad->get_top_left_corner().first < end_crossroad->get_top_left_corner().first) {
             beg_side = RIGHT;
             end_side = LEFT;
         }
         else {
             beg_side = LEFT;
             end_side = RIGHT;
-        }
-    }
-    else {
-        if(beg_crossroad->get_top_left_corner().first < end_crossroad->get_top_left_corner().first) {
-            beg_side = BOTTOM;
-            end_side = TOP;
-        }
-        else {
-            beg_side = TOP;
-            end_side = BOTTOM;
         }
     }
 }
@@ -137,7 +137,7 @@ Car* World::gen_rand_car() {
     std::vector<Direction> route;
     gen_rand_route(spawn.first, spawn.second, route);
     return new Car(rand() % 750000 + 250000, rand() % 1000 + 2500, rand() % 500 + 500,
-                   rand() % 2000 + 500, rand() % 6000000 + 8000000, rand(), rand(),
+                   rand() % 2000 + 500, rand() % 6000000 + 8000000, (rand() % 1000 + 2000) / 1000000.0, (rand() % 1000 + 2000) / 1000000.0,
                    lane, route, car_counter++);
 }
 

@@ -29,16 +29,15 @@ Visualizer::Visualizer(World *world)
 }
 
 int Visualizer::run() {
-    std::chrono::high_resolution_clock clock;
-    auto prev_time = clock.now();
+    auto prev_time = std::chrono::high_resolution_clock::now();
 
     while(window->isOpen()) {
         sf::Event event;
         while(window->pollEvent(event))
             handle_event(event);
 
-        auto time = clock.now();
-        unsigned int interval = std::chrono::duration_cast<std::chrono::milliseconds>(prev_time - time).count();
+        auto time = std::chrono::high_resolution_clock::now();
+        unsigned int interval = std::chrono::duration_cast<std::chrono::milliseconds>(time - prev_time).count();
         prev_time = time;
         world->on_tick(interval);
 
@@ -59,12 +58,12 @@ void Visualizer::handle_event(sf::Event &event) {
 void Visualizer::draw() {
     window->clear(sf::Color::White);
 
-    for(CarVisual *car : cars)
-        car->draw();
     for(CrossroadVisual *crossroad : crossroads)
         crossroad->draw();
     for(RoadVisual *road : roads)
         road->draw();
+    for(CarVisual *car : cars)
+        car->draw();
 
     window->display();
 }

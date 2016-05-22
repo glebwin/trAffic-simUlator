@@ -130,12 +130,12 @@ std::pair<int, int> Lane::get_beg() {
         case LEFT:
             if(road_beg == LEFT)
                 return std::pair<int, int>(cr->get_bott_right_corner().first,
-                                           cr->get_bott_right_corner().second +
+                                           cr->get_top_left_corner().second +
                                            lane_width * (road->get_backward_lanes().size() + lane_num) +
                                            lane_width / 2);
             else
                 return std::pair<int, int>(cr->get_bott_right_corner().first,
-                                           cr->get_bott_right_corner().second +
+                                           cr->get_top_left_corner().second +
                                            lane_width * (road->get_forward_lanes().size() + lane_num) +
                                            lane_width / 2);
     }

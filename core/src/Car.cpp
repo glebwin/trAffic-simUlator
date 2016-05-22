@@ -5,8 +5,8 @@
 #include "../include/Road.h"
 #include "../include/Utility.h"
 
-Car::Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed, int max_acceleration,
-         int max_deceleration, Lane *lane, std::vector<Direction> &route, int id)
+Car::Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed, double max_acceleration,
+         double max_deceleration, Lane *lane, std::vector<Direction> &route, int id)
         : velocity(velocity), length(length), min_gap(min_gap), time_headway(time_headway),
           cruise_speed(cruise_speed), max_acceleration(max_acceleration), max_deceleration(max_deceleration),
           lane(lane), route(route),
@@ -41,6 +41,7 @@ void Car::on_tick(unsigned int delta_ms) {
             state = DROVE_AWAY;
         }
     }
+    coord = 0;
 }
 
 bool Car::drove_away() {
@@ -55,11 +56,11 @@ double Car::calc_acceleration() {
     free_road_term = std::pow(static_cast<double>(velocity) / cruise_speed, acceleration_exponent);
 
     Car *next_car = get_next_car();
-    if(next_car)
-        interaction_term = std::pow(
-                               (min_gap + static_cast<double>(velocity)*time_headway + static_cast<double>(velocity)*(velocity-next_car->velocity) / (2*std::sqrt(static_cast<double>(max_acceleration)*max_deceleration))) /
-                                   (next_car->coord - next_car->length - coord),
-                                2);
+//    if(next_car)
+//        interaction_term = std::pow(
+//                               (min_gap + static_cast<double>(velocity)*time_headway + static_cast<double>(velocity)*(velocity-next_car->velocity) / (2*std::sqrt(static_cast<double>(max_acceleration)*max_deceleration))) /
+//                                   (next_car->coord - next_car->length - coord),
+//                                2);
 
     if(state == MOVING_STRAIGHT && !crossroad->is_green_light(lane, next_lane))
         traffic_light_term = std::pow((1 + static_cast<double>(velocity)*time_headway + std::pow(velocity, 2) / (2 * max_deceleration)) / (lane->get_length() - coord), 2);
