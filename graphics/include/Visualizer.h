@@ -14,7 +14,7 @@ class Visualizer {
 private:
 
     sf::RenderWindow *window;
-    World *world;
+    World &world;
 
     std::vector<CarVisual*> cars;
     std::vector<CrossroadVisual*> crossroads;
@@ -22,7 +22,7 @@ private:
 
 public:
 
-    Visualizer(World *world);
+    Visualizer(World &world);
 
     int run();
 

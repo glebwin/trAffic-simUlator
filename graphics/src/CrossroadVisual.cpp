@@ -2,10 +2,10 @@
 #include "../include/CrossroadVisual.h"
 #include "../include/VisConsts.h"
 
-CrossroadVisual::CrossroadVisual(sf::RenderWindow *window, const Crossroad *crossroad)
+CrossroadVisual::CrossroadVisual(sf::RenderWindow &window, const Crossroad &crossroad)
         : window(window), crossroad(crossroad) {
-    std::pair<int, int> top_left_corner = crossroad->get_top_left_corner();
-    std::pair<int, int> bott_right_corner = crossroad->get_bott_right_corner();
+    std::pair<int, int> top_left_corner = crossroad.get_top_left_corner();
+    std::pair<int, int> bott_right_corner = crossroad.get_bott_right_corner();
     sprite.setPosition(top_left_corner.first, top_left_corner.second);
     sprite.setSize(sf::Vector2f(bott_right_corner.first - top_left_corner.first,
                                  bott_right_corner.second - top_left_corner.second));
@@ -22,5 +22,5 @@ CrossroadVisual::~CrossroadVisual() {
 }
 
 void CrossroadVisual::draw() {
-    window->draw(sprite);
+    window.draw(sprite);
 }

@@ -9,14 +9,14 @@ class Car;
 class CarVisual {
 private:
 
-    sf::RenderWindow *window;
+    sf::RenderWindow &window;
     const Car &car;
     int id;
     sf::RectangleShape sprite;
 
 public:
 
-    CarVisual(sf::RenderWindow *world, const Car &car);
+    CarVisual(sf::RenderWindow &window, const Car &car);
 
     void draw();
     int get_id();

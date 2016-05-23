@@ -9,8 +9,8 @@ class Road;
 class RoadVisual {
 private:
 
-    sf::RenderWindow *window;
-    const Road *road;
+    sf::RenderWindow &window;
+    const Road &road;
 
     sf::RectangleShape sprite_asphalt;
     sf::RectangleShape sprite_solid_line;
@@ -20,7 +20,7 @@ private:
 
 public:
 
-    RoadVisual(sf::RenderWindow *window, const Road *road);
+    RoadVisual(sf::RenderWindow &window, const Road &road);
     void draw();
 
 private:

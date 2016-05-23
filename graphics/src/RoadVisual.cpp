@@ -3,7 +3,7 @@
 #include "../include/RoadVisual.h"
 #include "../include/VisConsts.h"
 
-RoadVisual::RoadVisual(sf::RenderWindow *window, const Road *road)
+RoadVisual::RoadVisual(sf::RenderWindow &window, const Road &road)
         : window(window), road(road) {
     set_sprite_asphalt();
     set_sprite_solid_line();
@@ -11,19 +11,19 @@ RoadVisual::RoadVisual(sf::RenderWindow *window, const Road *road)
 }
 
 void RoadVisual::draw() {
-    window->draw(sprite_asphalt);
-    window->draw(sprite_solid_line);
+    window.draw(sprite_asphalt);
+    window.draw(sprite_solid_line);
 
     for(double x : dashed_line_xs)
         for(double y : dashed_line_ys) {
             sprite_dashed_line.setPosition(x, y);
-            window->draw(sprite_dashed_line);
+            window.draw(sprite_dashed_line);
         }
 }
 
 void RoadVisual::set_sprite_asphalt() {
-    Crossroad *crossroad1 = road->get_beg_crossroad();
-    Crossroad *crossroad2 = road->get_end_crossroad();
+    Crossroad *crossroad1 = road.get_beg_crossroad();
+    Crossroad *crossroad2 = road.get_end_crossroad();
     auto cr1_tl_corner = crossroad1->get_top_left_corner();
     auto cr1_br_corner = crossroad1->get_bott_right_corner();
     auto cr2_tl_corner = crossroad2->get_top_left_corner();
@@ -59,15 +59,15 @@ void RoadVisual::set_sprite_asphalt() {
 }
 
 void RoadVisual::set_sprite_solid_line() {
-    Crossroad *beg_crossroad = road->get_beg_crossroad();
-    Crossroad *end_crossroad = road->get_end_crossroad();
+    Crossroad *beg_crossroad = road.get_beg_crossroad();
+    Crossroad *end_crossroad = road.get_end_crossroad();
     bool horizontal = (beg_crossroad->get_top_left_corner().second ==
                        end_crossroad->get_top_left_corner().second);
 
     if(horizontal) {
         int road_width = beg_crossroad->get_bott_right_corner().second - beg_crossroad->get_top_left_corner().second;
-        unsigned long forward_lanes_num = road->get_forward_lanes().size();
-        unsigned long backward_lanes_num = road->get_backward_lanes().size();
+        unsigned long forward_lanes_num = road.get_forward_lanes().size();
+        unsigned long backward_lanes_num = road.get_backward_lanes().size();
         double mid;
         if(beg_crossroad->get_top_left_corner().first < end_crossroad->get_top_left_corner().first)
             mid = beg_crossroad->get_top_left_corner().second + road_width *
@@ -85,8 +85,8 @@ void RoadVisual::set_sprite_solid_line() {
     }
     else {
         int road_width = beg_crossroad->get_bott_right_corner().first - beg_crossroad->get_top_left_corner().first;
-        unsigned long forward_lanes_num = road->get_forward_lanes().size();
-        unsigned long backward_lanes_num = road->get_backward_lanes().size();
+        unsigned long forward_lanes_num = road.get_forward_lanes().size();
+        unsigned long backward_lanes_num = road.get_backward_lanes().size();
         double mid;
         if(beg_crossroad->get_top_left_corner().second < end_crossroad->get_top_left_corner().second)
             mid = beg_crossroad->get_top_left_corner().first + road_width *
@@ -110,15 +110,15 @@ void RoadVisual::set_sprite_solid_line() {
 }
 
 void RoadVisual::set_sprites_dashed_lines() {
-    Crossroad *beg_crossroad = road->get_beg_crossroad();
-    Crossroad *end_crossroad = road->get_end_crossroad();
+    Crossroad *beg_crossroad = road.get_beg_crossroad();
+    Crossroad *end_crossroad = road.get_end_crossroad();
     bool horizontal = (beg_crossroad->get_top_left_corner().second ==
                        end_crossroad->get_top_left_corner().second);
 
     if(horizontal) {
         int road_width = beg_crossroad->get_bott_right_corner().second - beg_crossroad->get_top_left_corner().second;
-        unsigned long forward_lanes_num = road->get_forward_lanes().size();
-        unsigned long backward_lanes_num = road->get_backward_lanes().size();
+        unsigned long forward_lanes_num = road.get_forward_lanes().size();
+        unsigned long backward_lanes_num = road.get_backward_lanes().size();
         double step = road_width / (static_cast<double>(forward_lanes_num) + backward_lanes_num);
         if(beg_crossroad->get_top_left_corner().first < end_crossroad->get_top_left_corner().first) {
             double y = beg_crossroad->get_top_left_corner().second + step - VisConsts::get().dash_thick / 2;
@@ -151,8 +151,8 @@ void RoadVisual::set_sprites_dashed_lines() {
     }
     else {
         int road_width = beg_crossroad->get_bott_right_corner().first - beg_crossroad->get_top_left_corner().first;
-        unsigned long forward_lanes_num = road->get_forward_lanes().size();
-        unsigned long backward_lanes_num = road->get_backward_lanes().size();
+        unsigned long forward_lanes_num = road.get_forward_lanes().size();
+        unsigned long backward_lanes_num = road.get_backward_lanes().size();
         double step = road_width / (static_cast<double>(forward_lanes_num) + backward_lanes_num);
         if(beg_crossroad->get_top_left_corner().second < end_crossroad->get_top_left_corner().second) {
             double x = beg_crossroad->get_top_left_corner().first + step - VisConsts::get().dash_thick / 2;

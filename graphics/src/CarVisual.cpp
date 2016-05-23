@@ -3,7 +3,7 @@
 #include "../include/CarVisual.h"
 #include "../include/VisConsts.h"
 
-CarVisual::CarVisual(sf::RenderWindow *window, const Car &car)
+CarVisual::CarVisual(sf::RenderWindow &window, const Car &car)
         : window(window), car(car) {
     id = car.get_id();
 
@@ -15,7 +15,7 @@ CarVisual::CarVisual(sf::RenderWindow *window, const Car &car)
 
 void CarVisual::draw() {
     calc_pos();
-    window->draw(sprite);
+    window.draw(sprite);
 }
 
 int CarVisual::get_id() {
