@@ -15,15 +15,20 @@ void Crossroad::on_tick(unsigned int delta_ms) {
 }
 
 bool Crossroad::is_green_light(Lane *source, Lane *target) {
-    return !(traffic_light && target) || traffic_light->is_green_light(source->get_end_side(), target->get_beg_side());
+    return !(traffic_light && target) ||
+            traffic_light->is_green_light(source->get_end_side(), target->get_beg_side());
 }
 
-Road *Crossroad::get_road(Side side) {
+Road* Crossroad::get_road(Side side) {
     return roads[side];
 }
 
 void Crossroad::set_traffic_light(TrafficLight *traffic_light_) {
     traffic_light = traffic_light_;
+}
+
+void Crossroad::add_road(Road *road, Side side) {
+    roads[side] = road;
 }
 
 std::pair<int, int> Crossroad::get_top_left_corner() const {

@@ -6,8 +6,8 @@
 #include "../include/Visualizer.h"
 #include "../include/VisConsts.h"
 
-Visualizer::Visualizer(World &world)
-        : world(world) {
+Visualizer::Visualizer(World &world_)
+        : world(world_) {
     window = new sf::RenderWindow(sf::VideoMode(800, 600), "Traffic Simulator");
 
     VisConsts::get().scale = window->getSize().x / 40000.0;

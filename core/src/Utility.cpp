@@ -5,5 +5,5 @@ Side Utility::turn(Side turn_side, Direction turn_dir) {
 }
 
 Side Utility::opposite(Side side) {
-    return static_cast<Side>(side ^ 1);
+    return static_cast<Side>(side ^ 2);
 }

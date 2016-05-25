@@ -22,6 +22,8 @@ private:
 
     int car_counter;
 
+    const int max_route;
+
 public:
 
     World();
@@ -44,7 +46,7 @@ private:
 
     void get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, Side &beg_side, Side &end_side);
     Car* gen_rand_car();
-    void gen_rand_route(Road *road, Side side, std::vector<Direction> &route);
+    void gen_rand_route(const Road *road, Side side, std::vector<Direction> &route);
 };
 
 #endif

@@ -27,6 +27,7 @@ public:
     bool is_green_light(Lane *source, Lane *target);
 
     void set_traffic_light(TrafficLight *traffic_light_);
+    void add_road(Road *road, Side side);
 
     Road* get_road(Side side);
 

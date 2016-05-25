@@ -2,10 +2,13 @@
 #include "../include/Crossroad.h"
 #include "../include/Lane.h"
 #include "../include/Road.h"
+#include "../include/Utility.h"
 
 Road::Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Side end_side,
            unsigned int forward_lanes_num, unsigned int backward_lanes_num)
         : beg_crossroad(beg_crossroad), beg_side(beg_side), end_crossroad(end_crossroad), end_side(end_side) {
+    beg_crossroad->add_road(this, Utility::opposite(beg_side));
+    end_crossroad->add_road(this, Utility::opposite(end_side));
     calc_length(beg_crossroad, end_crossroad);
     forward_lanes.reserve(forward_lanes_num);
     for(int i = 0; i < forward_lanes_num; i++)
@@ -44,30 +47,30 @@ Side Road::get_end_side(Lane *lane) {
         return beg_side;
 }
 
-Crossroad* Road::get_next_crossroad(Side side) {
+Crossroad* Road::get_next_crossroad(Side side) const {
     if(side == end_side)
         return end_crossroad;
     else
         return beg_crossroad;
 }
 
-Crossroad *Road::get_beg_crossroad() const {
+Crossroad* Road::get_beg_crossroad() const {
     return beg_crossroad;
 }
 
-Crossroad *Road::get_end_crossroad() const {
+Crossroad* Road::get_end_crossroad() const {
     return end_crossroad;
 }
 
-const std::vector<Lane *>& Road::get_forward_lanes() const {
+const std::vector<Lane*>& Road::get_forward_lanes() const {
     return forward_lanes;
 }
 
-const std::vector<Lane *>& Road::get_backward_lanes() const {
+const std::vector<Lane*>& Road::get_backward_lanes() const {
     return backward_lanes;
 }
 
-Lane *Road::get_rand_lane(Side side) {
+Lane* Road::get_rand_lane(Side side) {
     if(side == beg_side)
         return forward_lanes[rand() % forward_lanes.size()];
     else
@@ -75,12 +78,10 @@ Lane *Road::get_rand_lane(Side side) {
 }
 
 Lane* Road::get_lane(Side side, int num) {
-    if (side == beg_side) {
+    if(side == beg_side)
         return forward_lanes[num];
-    }
-    else {
+    else
         return backward_lanes[num];
-    }
 }
 
 int Road::get_length() {

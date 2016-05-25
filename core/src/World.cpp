@@ -10,7 +10,7 @@
 #include "../include/World.h"
 
 World::World()
-        : car_counter(0) {
+        : car_counter(0), max_route(100) {
 }
 
 World::~World() {
@@ -121,12 +121,12 @@ void World::get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, S
     }
     else {
         if(beg_crossroad->get_top_left_corner().first < end_crossroad->get_top_left_corner().first) {
-            beg_side = RIGHT;
-            end_side = LEFT;
-        }
-        else {
             beg_side = LEFT;
             end_side = RIGHT;
+        }
+        else {
+            beg_side = RIGHT;
+            end_side = LEFT;
         }
     }
 }
@@ -141,8 +141,8 @@ Car* World::gen_rand_car() {
                    lane, route, car_counter++);
 }
 
-void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route) {
-    while(1) {
+void World::gen_rand_route(const Road *road, Side side, std::vector<Direction> &route) {
+    while(route.size() < max_route) {
         side = Utility::opposite(side);
         Crossroad *crossroad = road->get_next_crossroad(side);
         Direction dir = static_cast<Direction>(rand() % DIRECTIONS_NUM);
@@ -155,7 +155,7 @@ void World::gen_rand_route(Road *road, Side side, std::vector<Direction> &route)
         }
         route.push_back(dir);
         road = next_road;
-        side = Utility::turn(side, dir);
+        side = Utility::opposite(Utility::turn(side, dir));
     }
 }
 

@@ -30,7 +30,7 @@ public:
     Side get_end_side();
     Side get_beg_side(Lane *lane);
     Side get_end_side(Lane *lane);
-    Crossroad* get_next_crossroad(Side side);
+    Crossroad* get_next_crossroad(Side side) const;
     Crossroad* get_beg_crossroad() const;
     Crossroad* get_end_crossroad() const;
     const std::vector<Lane*>& get_forward_lanes() const;
