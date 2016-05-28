@@ -14,13 +14,15 @@ class Car {
 
 private:
 
-    int velocity;
+    const static double min_acceleration;
+
+    double velocity;
     int coord;
 
     int length;
     int min_gap;
     int time_headway;
-    int cruise_speed;
+    double cruise_speed;
     double max_acceleration;
     double max_deceleration;
     int acceleration_exponent;
@@ -37,7 +39,7 @@ private:
 
 public:
 
-    Car(int velocity, int length, int min_gap, int time_headway, int cruise_speed,
+    Car(double velocity, int length, int min_gap, int time_headway, double cruise_speed,
         double max_acceleration, double max_deceleration, Lane *lane, std::vector<Direction> &route, int id);
 
     void on_tick(unsigned int delta_ms);

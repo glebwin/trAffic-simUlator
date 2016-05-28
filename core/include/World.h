@@ -24,6 +24,21 @@ private:
 
     const int max_route;
 
+    double car_velocity_min;
+    double car_velocity_max;
+    int car_length_min;
+    int car_length_max;
+    int car_min_gap_min;
+    int car_min_gap_max;
+    int car_time_headway_min;
+    int car_time_headway_max;
+    double car_cruise_speed_min;
+    double car_cruise_speed_max;
+    double car_max_acceleration_min;
+    double car_max_acceleration_max;
+    double car_max_deceleration_min;
+    double car_max_deceleration_max;
+
 public:
 
     World();

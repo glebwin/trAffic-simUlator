@@ -10,7 +10,14 @@
 #include "../include/World.h"
 
 World::World()
-        : car_counter(0), max_route(100) {
+        : car_counter(0), max_route(100),
+          car_velocity_min(3), car_velocity_max(13),
+          car_length_min(2800), car_length_max(3600),
+          car_min_gap_min(100), car_min_gap_max(200),
+          car_time_headway_min(40), car_time_headway_max(60),
+          car_cruise_speed_min(8.2), car_cruise_speed_max(14),
+          car_max_acceleration_min(0.01), car_max_acceleration_max(0.1),
+          car_max_deceleration_min(0.01), car_max_deceleration_max(0.1) {
 }
 
 World::~World() {
@@ -136,8 +143,13 @@ Car* World::gen_rand_car() {
     Lane *lane = spawn.first->get_rand_lane(spawn.second);
     std::vector<Direction> route;
     gen_rand_route(spawn.first, spawn.second, route);
-    return new Car((rand() % 1000 + 7500) / 1000.0, rand() % 600 + 2000, rand() % 500 + 500,
-                   rand() % 2000 + 500, rand() % 6000000 + 8000000, (rand() % 1000 + 2000) / 1000000.0, (rand() % 1000 + 2000) / 1000000.0,
+    return new Car(Utility::random(car_velocity_min, car_velocity_max, 3),
+                   Utility::random(car_length_min, car_length_max, 3),
+                   Utility::random(car_min_gap_min, car_min_gap_max),
+                   Utility::random(car_time_headway_min, car_time_headway_max),
+                   Utility::random(car_cruise_speed_min, car_cruise_speed_max, 3),
+                   Utility::random(car_max_acceleration_min, car_max_acceleration_max, 3),
+                   Utility::random(car_max_deceleration_min, car_max_deceleration_max, 3),
                    lane, route, car_counter++);
 }
 
