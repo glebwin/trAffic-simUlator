@@ -116,8 +116,8 @@ void World::read_file(std::string file_name) {
 }
 
 void World::get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, Side &beg_side, Side &end_side) {
-    if(beg_crossroad->get_top_left_corner().first == end_crossroad->get_top_left_corner().first) {
-        if(beg_crossroad->get_top_left_corner().second < end_crossroad->get_top_left_corner().second) {
+    if(beg_crossroad->get_tl_corner().first == end_crossroad->get_tl_corner().first) {
+        if(beg_crossroad->get_tl_corner().second < end_crossroad->get_tl_corner().second) {
             beg_side = TOP;
             end_side = BOTTOM;
         }
@@ -127,7 +127,7 @@ void World::get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, S
         }
     }
     else {
-        if(beg_crossroad->get_top_left_corner().first < end_crossroad->get_top_left_corner().first) {
+        if(beg_crossroad->get_tl_corner().first < end_crossroad->get_tl_corner().first) {
             beg_side = LEFT;
             end_side = RIGHT;
         }

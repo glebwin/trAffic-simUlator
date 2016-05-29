@@ -31,8 +31,8 @@ public:
 
     Road* get_road(Side side);
 
-    std::pair<int, int> get_top_left_corner() const;
-    std::pair<int, int> get_bott_right_corner() const;
+    std::pair<int, int> get_tl_corner() const;
+    std::pair<int, int> get_br_corner() const;
 };
 
 

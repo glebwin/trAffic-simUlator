@@ -31,10 +31,10 @@ void Crossroad::add_road(Road *road, Side side) {
     roads[side] = road;
 }
 
-std::pair<int, int> Crossroad::get_top_left_corner() const {
+std::pair<int, int> Crossroad::get_tl_corner() const {
     return top_left_corner;
 }
 
-std::pair<int, int> Crossroad::get_bott_right_corner() const {
+std::pair<int, int> Crossroad::get_br_corner() const {
     return bott_right_corner;
 }

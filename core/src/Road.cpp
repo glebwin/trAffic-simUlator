@@ -10,6 +10,7 @@ Road::Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Si
     beg_crossroad->add_road(this, Utility::opposite(beg_side));
     end_crossroad->add_road(this, Utility::opposite(end_side));
     calc_length(beg_crossroad, end_crossroad);
+
     forward_lanes.reserve(forward_lanes_num);
     for(int i = 0; i < forward_lanes_num; i++)
         forward_lanes.push_back(new Lane(this, i));
@@ -89,10 +90,10 @@ int Road::get_length() {
 }
 
 void Road::calc_length(Crossroad *crossroad1, Crossroad *crossroad2) {
-    auto tl1 = crossroad1->get_top_left_corner();
-    auto br1 = crossroad1->get_bott_right_corner();
-    auto tl2 = crossroad2->get_top_left_corner();
-    auto br2 = crossroad2->get_bott_right_corner();
+    auto tl1 = crossroad1->get_tl_corner();
+    auto br1 = crossroad1->get_br_corner();
+    auto tl2 = crossroad2->get_tl_corner();
+    auto br2 = crossroad2->get_br_corner();
     if(is_hor())
         length = std::max(tl2.first - br1.first, tl1.first - br2.first);
     else
@@ -100,12 +101,12 @@ void Road::calc_length(Crossroad *crossroad1, Crossroad *crossroad2) {
 }
 
 bool Road::is_hor() {
-    return beg_crossroad->get_top_left_corner().second == end_crossroad->get_top_left_corner().second;
+    return beg_crossroad->get_tl_corner().second == end_crossroad->get_tl_corner().second;
 }
 
 int Road::get_width() {
     if(beg_side == TOP || beg_side == BOTTOM)
-        return beg_crossroad->get_bott_right_corner().first - beg_crossroad->get_top_left_corner().first;
+        return beg_crossroad->get_br_corner().first - beg_crossroad->get_tl_corner().first;
     else
-        return beg_crossroad->get_bott_right_corner().second - beg_crossroad->get_top_left_corner().second;
+        return beg_crossroad->get_br_corner().second - beg_crossroad->get_tl_corner().second;
 }
