@@ -9,9 +9,9 @@ class TrafficLight {
 public:
 
     struct ScheduleUnit {
-        int state;
+        unsigned int state;
         unsigned int duration;
-        ScheduleUnit(int state, unsigned int duration) : state(state), duration(duration) {}
+        ScheduleUnit(unsigned int state, unsigned int duration) : state(state), duration(duration) {}
     };
 
 private:
@@ -30,7 +30,7 @@ public:
 
 private:
 
-    int get_mask(Side source, Side target);
+    unsigned int get_mask(Side source, Side target);
 };
 
 

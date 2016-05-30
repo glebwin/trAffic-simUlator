@@ -13,8 +13,8 @@ World::World()
         : car_counter(0), max_route(100),
           car_velocity_min(3), car_velocity_max(13),
           car_length_min(2800), car_length_max(3600),
-          car_min_gap_min(100), car_min_gap_max(200),
-          car_time_headway_min(40), car_time_headway_max(60),
+          car_min_gap_min(200), car_min_gap_max(600),
+          car_time_headway_min(100), car_time_headway_max(600),
           car_cruise_speed_min(8.2), car_cruise_speed_max(14),
           car_max_acceleration_min(0.01), car_max_acceleration_max(0.1),
           car_max_deceleration_min(0.01), car_max_deceleration_max(0.1) {
@@ -65,24 +65,23 @@ void World::read_file(std::string file_name) {
 
         if(type == "crossroad") {
             std::string id;
-            std::pair<int, int> top_left_corner;
-            std::pair<int, int> bott_right_corner;
+            std::pair<int, int> tl_corner;
+            std::pair<int, int> br_corner;
             stream >> id
-                   >> top_left_corner.first >> top_left_corner.second
-                   >> bott_right_corner.first >> bott_right_corner.second;
+                   >> tl_corner.first >> tl_corner.second
+                   >> br_corner.first >> br_corner.second;
 
-            Crossroad *crossroad = new Crossroad(top_left_corner, bott_right_corner);
+            Crossroad *crossroad = new Crossroad(tl_corner, br_corner);
             crossroads[id] = crossroad;
             prev_crossroad = crossroad;
             add_crossroad(crossroad);
         }
         else if(type == "traffic_light") {
             std::vector<TrafficLight::ScheduleUnit> schedule;
-            int mask;
+            unsigned int mask;
             unsigned int duration;
-            while(stream >> mask >> duration) {
+            while(stream >> mask >> duration)
                 schedule.push_back(TrafficLight::ScheduleUnit(mask, duration));
-            }
             prev_crossroad->set_traffic_light(new TrafficLight(schedule));
         }
         else if(type == "road") {
@@ -139,7 +138,7 @@ void World::get_road_sides(Crossroad *beg_crossroad, Crossroad *end_crossroad, S
 }
 
 Car* World::gen_rand_car() {
-    std::pair<Road*, Side> spawn = spawn_roads[rand() % spawn_roads.size()];
+    std::pair<Road*, Side> spawn = spawn_roads[std::rand() % spawn_roads.size()];
     Lane *lane = spawn.first->get_rand_lane(spawn.second);
     std::vector<Direction> route;
     gen_rand_route(spawn.first, spawn.second, route);
@@ -156,15 +155,18 @@ Car* World::gen_rand_car() {
 void World::gen_rand_route(const Road *road, Side side, std::vector<Direction> &route) {
     while(route.size() < max_route) {
         side = Utility::opposite(side);
+
         Crossroad *crossroad = road->get_next_crossroad(side);
-        Direction dir = static_cast<Direction>(rand() % DIRECTIONS_NUM);
+        Direction dir = static_cast<Direction>(std::rand() % DIRECTIONS_NUM);
         Road *next_road = crossroad->get_road(Utility::turn(side, dir));
+
         if(!next_road) {
-            dir = static_cast<Direction>(rand() % DIRECTIONS_NUM);
+            dir = static_cast<Direction>(std::rand() % DIRECTIONS_NUM);
             next_road = crossroad->get_road(Utility::turn(side, dir));
             if(!next_road)
                 break;
         }
+
         route.push_back(dir);
         road = next_road;
         side = Utility::opposite(Utility::turn(side, dir));

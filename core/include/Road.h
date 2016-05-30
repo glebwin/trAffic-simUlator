@@ -44,6 +44,7 @@ public:
 private:
 
     void calc_length(Crossroad *crossroad1, Crossroad *crossroad2);
+    void create_lanes(std::vector<Lane*> &lanes, unsigned int lanes_num);
 };
 
 

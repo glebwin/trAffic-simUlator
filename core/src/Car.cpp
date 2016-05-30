@@ -57,17 +57,22 @@ double Car::calc_acceleration() {
     double interaction_term = 0;
     double traffic_light_term = 0;
 
-    free_road_term = std::pow(static_cast<double>(velocity) / cruise_speed, acceleration_exponent);
+    free_road_term = std::pow(velocity / cruise_speed, acceleration_exponent);
 
     Car *next_car = get_next_car();
-    if(next_car)
+    if(next_car) {
+        int next_car_dist = next_car->coord - next_car->length - coord
+                            + (next_car->get_lane() != lane) * lane->get_length();
         interaction_term = std::pow(
-                               (min_gap + static_cast<double>(velocity)*time_headway + velocity*(velocity-next_car->velocity) / (2*std::sqrt(max_acceleration*max_deceleration))) /
-                                   (next_car->coord - next_car->length - coord + (lane != next_car->get_lane()) * lane->get_length()),
+                               (min_gap + velocity * time_headway + velocity * (velocity - next_car->velocity) /
+                                     (2 * std::sqrt(max_acceleration * max_deceleration))) /
+                                   next_car_dist,
                                 2);
+    }
 
     if(state == MOVING_STRAIGHT && !crossroad->is_green_light(lane, next_lane))
-        traffic_light_term = std::pow((1 + velocity*time_headway + std::pow(velocity, 2) / (2 * max_deceleration)) / (lane->get_length() - coord), 2);
+        traffic_light_term = std::pow((1 + velocity * time_headway + std::pow(velocity, 2) / (2 * max_deceleration))
+                                      / (lane->get_length() - coord), 2);
 
     double acceleration = max_acceleration * (1 - free_road_term - interaction_term - traffic_light_term);
 

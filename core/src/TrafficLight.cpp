@@ -2,7 +2,7 @@
 
 TrafficLight::TrafficLight(std::vector<ScheduleUnit> &schedule)
         : schedule(schedule) {
-
+    start();
 }
 
 void TrafficLight::on_tick(unsigned int delta_ms) {
@@ -24,6 +24,6 @@ bool TrafficLight::is_green_light(Side source, Side target) {
     return static_cast<bool>(schedule_it->state & get_mask(source, target));
 }
 
-int TrafficLight::get_mask(Side source, Side target) {
+unsigned int TrafficLight::get_mask(Side source, Side target) {
     return 1 << (source * SIDES_NUM + target);
 }

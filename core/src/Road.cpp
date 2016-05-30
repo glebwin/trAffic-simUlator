@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstdlib>
 #include "../include/Crossroad.h"
 #include "../include/Lane.h"
 #include "../include/Road.h"
@@ -11,12 +12,8 @@ Road::Road(Crossroad *beg_crossroad, Side beg_side, Crossroad *end_crossroad, Si
     end_crossroad->add_road(this, Utility::opposite(end_side));
     calc_length(beg_crossroad, end_crossroad);
 
-    forward_lanes.reserve(forward_lanes_num);
-    for(int i = 0; i < forward_lanes_num; i++)
-        forward_lanes.push_back(new Lane(this, i));
-    backward_lanes.reserve(backward_lanes_num);
-    for(int i = 0; i < backward_lanes_num; i++)
-        backward_lanes.push_back(new Lane(this, i));
+    create_lanes(forward_lanes, forward_lanes_num);
+    create_lanes(backward_lanes, backward_lanes_num);
 }
 
 Road::~Road() {
@@ -73,9 +70,9 @@ const std::vector<Lane*>& Road::get_backward_lanes() const {
 
 Lane* Road::get_rand_lane(Side side) {
     if(side == beg_side)
-        return forward_lanes[rand() % forward_lanes.size()];
+        return forward_lanes[std::rand() % forward_lanes.size()];
     else
-        return backward_lanes[rand() % backward_lanes.size()];
+        return backward_lanes[std::rand() % backward_lanes.size()];
 }
 
 Lane* Road::get_lane(Side side, int num) {
@@ -109,4 +106,14 @@ int Road::get_width() {
         return beg_crossroad->get_br_corner().first - beg_crossroad->get_tl_corner().first;
     else
         return beg_crossroad->get_br_corner().second - beg_crossroad->get_tl_corner().second;
+}
+
+void Road::create_lanes(std::vector<Lane *> &lanes, unsigned int lanes_num) {
+    lanes.reserve(lanes_num);
+    for(int i = 0; i < lanes_num; i++)
+        lanes.push_back(new Lane(this, i));
+    for(int i = 0; i < lanes_num - 1; i++)
+        lanes[i]->set_right_adjacent(lanes[i + 1]);
+    for(int i = 1; i < lanes_num; i++)
+        lanes[i]->set_left_adjacent(lanes[i - 1]);
 }

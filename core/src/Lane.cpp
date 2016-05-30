@@ -3,8 +3,9 @@
 #include "../include/Lane.h"
 #include "../include/Road.h"
 
-Lane::Lane(Road *road, int lane_num)
-        : road(road), lane_num(lane_num) {
+Lane::Lane(Road *road, unsigned int lane_num)
+        : road(road), lane_num(lane_num),
+          left_adjacent(nullptr), right_adjacent(nullptr) {
 }
 
 Crossroad* Lane::get_next_crossroad() {
@@ -19,7 +20,7 @@ Side Lane::get_end_side() {
     return road->get_end_side(this);
 }
 
-int Lane::get_num() {
+unsigned int Lane::get_num() {
     return lane_num;
 }
 
@@ -79,10 +80,6 @@ void Lane::depart(Car *car) {
             cars.erase(it);
             break;
         }
-}
-
-bool Lane::is_hor() {
-    return road->is_hor();
 }
 
 std::pair<int, int> Lane::get_beg() {

@@ -11,7 +11,7 @@ Side Utility::opposite(Side side) {
 }
 
 int Utility::random(int a, int b) {
-    return rand() % (b - a + 1) + a;
+    return std::rand() % (b - a + 1) + a;
 }
 
 double Utility::random(double a, double b, int prec) {

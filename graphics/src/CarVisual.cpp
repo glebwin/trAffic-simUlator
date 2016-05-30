@@ -10,7 +10,7 @@ CarVisual::CarVisual(sf::RenderWindow &window, const Car &car)
     sprite.setOrigin(car.get_length(), VisConsts::get().car_width / 2);
     sprite.setSize(sf::Vector2f(car.get_length(), VisConsts::get().car_width));
     sprite.setScale(VisConsts::get().scale, VisConsts::get().scale);
-    sprite.setFillColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+    sprite.setFillColor(sf::Color(std::rand() % 256, std::rand() % 256, std::rand() % 256));
 }
 
 void CarVisual::draw() {

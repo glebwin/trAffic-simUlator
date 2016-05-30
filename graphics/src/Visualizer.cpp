@@ -37,14 +37,16 @@ int Visualizer::run() {
             handle_event(event);
 
         auto time = std::chrono::high_resolution_clock::now();
-        unsigned int interval = std::chrono::duration_cast<std::chrono::milliseconds>(time - prev_time).count();
+        auto interval = std::chrono::duration_cast<std::chrono::milliseconds>(time - prev_time).count();
         prev_time = time;
+        interval = std::min(static_cast<int>(interval), 10);
+
         world.on_tick(interval);
 
         update_cars();
 
         draw();
-        sf::sleep(sf::milliseconds(3));
+        sf::sleep(sf::milliseconds(1));
     }
 
     return 0;
