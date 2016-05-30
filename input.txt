@@ -1,0 +1,40 @@
+crossroad cr1 2000 2000 8000 8000
+traffic_light 0 3000 65535 3000
+crossroad cr2 32000 2000 38000 8000
+crossroad cr3 62000 2000 68000 8000
+crossroad cr4 92000 2000 98000 8000
+crossroad cr5 2000 18000 8000 24000
+crossroad cr6 32000 18000 38000 24000
+crossroad cr7 62000 18000 68000 24000
+crossroad cr8 92000 18000 98000 24000
+crossroad cr9 2000 34000 8000 40000
+crossroad cr10 32000 34000 38000 40000
+crossroad cr11 62000 34000 68000 40000
+crossroad cr12 92000 34000 98000 40000
+crossroad cr13 2000 51000 8000 57000
+crossroad cr14 32000 51000 38000 57000
+crossroad cr15 62000 51000 68000 57000
+
+road cr2 cr3 3 3
+road cr3 cr4 3 3
+road cr5 cr6 3 3
+road cr6 cr7 3 3
+road cr7 cr8 3 3
+road cr9 cr10 3 3
+road cr10 cr11 3 3
+road cr11 cr12 3 3
+road cr13 cr14 3 3
+road cr14 cr15 3 3
+
+road cr1 cr5 3 3
+road cr2 cr6 3 3
+road cr3 cr7 3 3
+road cr4 cr8 3 3
+road cr5 cr9 3 3
+road cr6 cr10 3 3
+road cr7 cr11 3 3
+road cr8 cr12 3 3
+road cr10 cr14 3 3
+road cr11 cr15 3 3
+
+cars 70

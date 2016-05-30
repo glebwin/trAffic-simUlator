@@ -12,7 +12,7 @@
 World::World()
         : car_counter(0), max_route(100),
           car_velocity_min(3), car_velocity_max(13),
-          car_length_min(2800), car_length_max(3600),
+          car_length_min(2000), car_length_max(3000),
           car_min_gap_min(200), car_min_gap_max(600),
           car_time_headway_min(100), car_time_headway_max(600),
           car_cruise_speed_min(8.2), car_cruise_speed_max(14),
@@ -24,7 +24,7 @@ World::~World() {
 }
 
 void World::on_tick(unsigned int delta_ms) {
-    for(auto it : cars) {
+    for(auto &it : cars) {
         if(it->drove_away()) {
             delete it;
             it = gen_rand_car();

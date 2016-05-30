@@ -22,7 +22,7 @@ private:
 
     VisConsts() : asphalt_col(130, 130, 130), road_outline_col(230, 230, 230),
                   marking_col(250, 250, 250), road_outline_thickness(80), marking_thickness(200),
-                  dash_len(800), dash_padd(200), dash_thick(100), car_width(800) {}
+                  dash_len(800), dash_padd(200), dash_thick(100), car_width(700) {}
     VisConsts(const VisConsts&);
     VisConsts& operator=(VisConsts&);
 

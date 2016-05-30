@@ -8,9 +8,9 @@
 
 Visualizer::Visualizer(World &world_)
         : world(world_) {
-    window = new sf::RenderWindow(sf::VideoMode(800, 600), "Traffic Simulator");
+    window = new sf::RenderWindow(sf::VideoMode(1100, 650), "Traffic Simulator");
 
-    VisConsts::get().scale = window->getSize().x / 70000.0;
+    VisConsts::get().scale = window->getSize().x / 100000.0;
 
     const std::vector<Car*> &world_cars = world.get_cars();
     cars.reserve(world_cars.size());

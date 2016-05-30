@@ -55,7 +55,7 @@ Car* Lane::get_next_car(Car *car) {
 
 Car* Lane::get_first_car() {
     if(!cars.empty())
-        return *cars.begin();
+        return cars.front();
     else
         return nullptr;
 }
